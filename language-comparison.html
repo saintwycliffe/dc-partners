@@ -6,6 +6,7 @@
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/svg4everybody.min.js"></script>
 		<script type="text/javascript" src="js/imagesloaded.pkgd.min.js"></script>
+		<script type="text/javascript" src="js/dragscroll.js"></script>
 		<script type="text/javascript" src="js/remodal.min.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>
 	</head>
@@ -20,7 +21,7 @@
 			padding: 0;
 			font-family: "Gotham SSM A", Montserrat, Verdana, sans-serif;
 			overflow: hidden;
-/*			cursor: none;*/
+			cursor: none;
 		}
 		@font-face {
 			font-family: 'Gotham SSM A';
@@ -60,6 +61,10 @@
 			padding-top: 1em;
 			padding-bottom: 1em;
 */
+		}
+
+		::-webkit-scrollbar {
+    	display: none;
 		}
 
 		.overflow--scroll {
@@ -311,7 +316,7 @@
 								<h2>Luke 2</h2>
 								<h3>English (NLT)</h3>
 							</div>
-							<div class="overflow--scroll grid-container">
+							<div class="overflow--scroll dragscroll grid-container">
 								<p class="grid-item verse-number">1</p>
 								<p class="grid-item">At that time the Roman emperor, Augustus, decreed that a census should be taken throughout the Roman Empire.</p>
 								<p class="grid-item verse-number">2</p>
@@ -423,7 +428,7 @@
 								<h2>Lukase 2</h2>
 								<h3>Denya &mdash; Cameroon</h3>
 							</div>
-							<div class="overflow--scroll grid-container">
+							<div class="overflow--scroll dragscroll grid-container">
 								<p class="grid-item verse-number">1</p>
 								<p class="grid-item">Né gébé ɛyigémbɔ, Ɔgɔstɔs abɔ́ alu *Mfwa kpaa né malɔ yi álú ntente *Rom. Afyɛ́ ɛbɛ́ nnó ápá bɔɔ́ ako abi álú né malɔ ayi ábɔ́ álú nte gefwa jií. Gɛ́ ndɔ mbɛ ayi alɔ mampáné bɔɔ́ na,</p>
 								<p class="grid-item verse-number">2</p>
@@ -533,7 +538,7 @@
 								<h2>San Lucas 2</h2>
 								<h3>Mazatec &mdash; Mexico</h3>
 							</div>
-							<div class="overflow--scroll grid-container">
+							<div class="overflow--scroll dragscroll grid-container">
 								<p class="grid-item verse-number">1</p>
 								<p class="grid-item">Koi na̱chrjein k'e̱ nga tjín‑la̱ xá ítjòn César Augusto tsjachrje jngoò o̱kixi̱ nga ngats'iì xi̱ta̱ na̱xa̱ndá xi otíxoma‑la̱ Roma, xo̱jo̱ón si̱t'aà 'ín‑la̱.</p>
 								<p class="grid-item verse-number">2</p>
@@ -640,12 +645,12 @@
 								<p class="grid-item">Jesús, tímajchínga koa̱ na̱chrjein inchijòn, ìsa̱ ndaà tímachi̱ya‑la̱; ti̱koa̱ tís'e‑la̱ kjo̱ndaà‑la̱ Nainá ko̱ ts'e̱ xi̱ta̱.</p>
 							</div>
 						</div>
-						<div class="cell cell--1of4 sherpa">
+						<!-- <div class="cell cell--1of4 sherpa">
 							<div class="language-name text--center">
 								<h2>लूका 2</h2>
 								<h3>Sherpa &mdash; Asia</h3>
 							</div>
-							<div class="overflow--scroll grid-container">
+							<div class="overflow--scroll dragscroll grid-container">
 								<p class="grid-item verse-number">1</p>
 								<p class="grid-item">ती पेला रोमी ग्‍येल्‍वु अगस्‍टसकी खोरे लुङ्‍बी तेरी मीतिवाला दाक दाक्‍पी क्‍येवु दासाला मिङ टिनी थो ग्‍योप सिनी क बिन्‍नोक।</p>
 								<p class="grid-item verse-number">2</p>
@@ -751,7 +756,12 @@
 								<p class="grid-item verse-number">52</p>
 								<p class="grid-item">येशू ति रिक्‍पा ताङ जुजमला छरिन गाल्‍सुङ, तमा कोन्‍छ्‍योक ताङ मीतिवा नेमा मङ ङ्‍यिङ्‍ज्‍ये थोपिन गाल्‍सुङ।</p>
 							</div>
-						</div>
+						</div> -->
+					<div class="cell cell--1of4 sherpa">
+							<div class="language-name text--center">
+								<h2>More of God's Word for the Nations</h2>
+								<h3>Coming Soon!</h3>
+							</div>
 					</div>
 				</div>
 			</div>
