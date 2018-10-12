@@ -1,0 +1,795 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Language Comparison</title>
+		<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/svg4everybody.min.js"></script>
+		<script type="text/javascript" src="js/imagesloaded.pkgd.min.js"></script>
+		<script type="text/javascript" src="js/remodal.min.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+	</head>
+	<style type="text/css">
+		body {
+			background-color: #fff;
+			background-position: center center;
+			background-size: cover;
+			background-repeat: no-repeat;
+			color: #47525A;
+			margin: 0;
+			padding: 0;
+			font-family: "Gotham SSM A", Montserrat, Verdana, sans-serif;
+			overflow: hidden;
+/*			cursor: none;*/
+		}
+		@font-face {
+			font-family: 'Gotham SSM A';
+			src:
+			url('fonts/GothamSSm-Book.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
+		}
+
+		.flex {
+			display: flex;
+		}
+
+		.flex--column {
+			flex-direction: column;
+		}
+
+		.flex--wrap {
+			flex-wrap: wrap;
+		}
+
+		.vertical--center {
+			align-self: center;
+		}
+
+		.background {
+			width: 100vw;
+			height: 100vh;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+		}
+
+		.background--gray {
+			background-color: #fff;
+/*
+			padding-top: 1em;
+			padding-bottom: 1em;
+*/
+		}
+
+		.overflow--scroll {
+			overflow: scroll;
+		}
+
+		.grid-container {
+			display: grid;
+			grid-template-columns: auto auto;
+/*			padding: 10px;*/
+		}
+
+		.comparison-container {
+			width: 98%;
+			background: #fff;
+/*			height: 790px;*/
+			border-radius: 3px;
+
+		}
+
+		.cell {
+			margin-left: 0.5rem;
+			margin-right: 0.5rem;
+			overflow: hidden;
+		}
+
+		.cell--2of3 {
+			width: calc( 66.6666% - 0.5rem * 2 );
+			float: left;
+		}
+
+		.cell--1of2 {
+			width: calc( 50% - 0.5rem * 2);
+			float: left;
+		}
+
+		.cell--1of4 {
+			width: calc( 25% - 1.05rem * 2 );
+			float: left;
+			padding: 0 1em;
+			margin: 1.5em 0em;
+			border-left: 1px solid rgba(0,0,0,.2);
+		}
+
+
+		*:first-child {
+			border-left: 0;
+		}
+
+		.overflow--scroll {
+			height: 75vh;
+			overflow: scroll;
+		}
+
+		.cell--center {
+			margin-left: auto;
+			margin-right: auto;
+			float: none;
+		}
+		.text--center {
+			text-align: center;
+		}
+
+		.text--uppercase {
+			text-transform: uppercase;
+		}
+
+		p, h1, h2, h3 {
+			margin-top: 0;
+			margin-bottom: 1em;
+			line-height: 1.5;
+			color: #47525A;
+		}
+
+		h1 {
+			font-size: 1.5em;
+			margin: 0.5em 0;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+		}
+
+		h2 {
+			text-transform: uppercase;
+			font-size: 1em;
+			letter-spacing: 1px;
+		}
+
+		h3 {
+			font-size: 0.9em;
+			letter-spacing: 0.75px;
+		}
+
+		.grid-item {
+			padding: 0 5px;
+		}
+
+		header {
+			border-bottom: 1px solid rgba(0,0,0,.2);
+		}
+
+		footer {
+			border-top: 1px solid rgba(0,0,0,.2);
+		}
+
+		.wycliffe-logo {
+			border-right: 1px solid #fff;
+		}
+
+		/**Modal**/
+		.modal {
+			padding: 0 !important;
+			position: relative;
+			z-index: 100;
+			height: 65%;
+			width: 65%;
+			overflow: hidden;
+			align-self: center;
+			margin: auto;
+		}
+		.bkgrd-pattern {
+			background-image: url('intro-screen.jpg');
+			background-repeat: no-repeat;
+			background-size: cover!important;
+			background-position: center bottom;
+		}
+
+		.remodal-close {
+			right: 0!important;
+			left: auto!important;
+			color: #000!important;
+			position: absolute;
+			top: 0;
+			right: 2;
+			display: block;
+			overflow: visible;
+			width: 35px;
+			height: 35px;
+			margin: 0;
+			padding: 0 4em 0 0;
+			cursor: pointer;
+			-webkit-transition: color 0.2s;
+			transition: color 0.2s;
+			text-decoration: none;
+			color: #fff!important;
+			border: 0;
+			outline: 0;
+			background: transparent;
+		}
+
+		.remodal-close:before {
+			font-family: Arial, "Helvetica CY", "Nimbus Sans L", sans-serif !important;
+			font-size: 50px;
+			line-height: 65px;
+			position: absolute;
+			top: 0;
+			right: 2;
+			display: block;
+			width: 35px;
+			content: "\00d7";
+			text-align: center;
+		}
+
+		.remodal {
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+			padding: 35px;
+			-webkit-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+			color: #2b2e38;
+		}
+
+		.remodal-wrapper {
+			position: fixed;
+			z-index: 10000;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			display: flex;
+			overflow: auto;
+			text-align: center;
+			-webkit-overflow-scrolling: touch;
+			overflow: hidden;
+			margin: auto;
+			margin-bottom: 0;
+		}
+
+		.remodal-overlay {
+			background: rgba(43, 46, 56, 0.9);
+		}
+
+		.remodal-overlay, .remodal-wrapper {
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+		}
+
+		.remodal-overlay {
+			position: fixed;
+			z-index: 9999;
+			top: -5000px;
+			right: -5000px;
+			bottom: -5000px;
+			left: -5000px;
+			display: none;
+		}
+
+		.text--white {
+			color: #fff!important;
+		}
+
+		.text--larger {
+			font-size: 120%;
+		}
+
+		.btn {
+			display: inline-block;
+			padding: 0.6em 1em 0.675em;
+			font-family: "Gotham SSm A", "Gotham SSm B", Verdana, sans-serif;
+			font-size: 1.25em;
+			font-weight: 900;
+			letter-spacing: 1px;
+			text-align: center;
+			border: 1px solid;
+			border-radius: 4px;
+			cursor: pointer;
+			white-space: nowrap;
+			background: none;
+			overflow: visible;
+			background: #E64C38;
+			color: #fff;
+			border-color: #E64C38;
+		}
+
+	</style>
+
+
+	<body>
+		<div class="background flex flex--wrap">
+<!--
+			<header class="text--center band flex flex--column flex--wrap" style="width: 100%; background: #fff;">
+				<h1 class="vertical--center">Give Me a Good Title</h1>
+			</header>
+-->
+			<div class="background--gray flex flex--wrap">
+				<div class="cell comparison-container cell--center vertical--center">
+					<div class="cell--center">
+						<div class="cell cell--1of4">
+							<div class="language-name text--center">
+								<h2>Luke 2</h2>
+								<h3>English (NLT)</h3>
+							</div>
+							<div class="overflow--scroll grid-container">
+								<p class="grid-item verse-number">1</p>
+								<p class="grid-item">At that time the Roman emperor, Augustus, decreed that a census should be taken throughout the Roman Empire.</p>
+								<p class="grid-item verse-number">2</p>
+								<p class="grid-item">(This was the first census taken when Quirinius was governor of Syria.)</p>
+								<p class="grid-item verse-number">3</p>
+								<p class="grid-item">All returned to their own ancestral towns to register for this census.</p>
+								<p class="grid-item verse-number">4</p>
+								<p class="grid-item">And because Joseph was a descendant of King David, he had to go to Bethlehem in Judea, David’s ancient home. He traveled there from the village of Nazareth in Galilee.</p>
+								<p class="grid-item verse-number">5</p>
+								<p class="grid-item">He took with him Mary, to whom he was engaged, who was now expecting a child.</p>
+								<p class="grid-item verse-number">6</p>
+								<p class="grid-item">And while they were there, the time came for her baby to be born.</p>
+								<p class="grid-item verse-number">7</p>
+								<p class="grid-item">She gave birth to her firstborn son. She wrapped him snugly in strips of cloth and laid him in a manger, because there was no lodging available for them.</p>
+								<p class="grid-item verse-number">8</p>
+								<p class="grid-item">That night there were shepherds staying in the fields nearby, guarding their flocks of sheep.</p>
+								<p class="grid-item verse-number">9</p>
+								<p class="grid-item">Suddenly, an angel of the Lord appeared among them, and the radiance of the Lord’s glory surrounded them. They were terrified,</p>
+								<p class="grid-item verse-number">10</p>
+								<p class="grid-item">but the angel reassured them. “Don’t be afraid!” he said. “I bring you good news that will bring great joy to all people.</p>
+								<p class="grid-item verse-number">11</p>
+								<p class="grid-item">The Savior—yes, the Messiah, the Lord—has been born today in Bethlehem, the city of David!</p>
+								<p class="grid-item verse-number">12</p>
+								<p class="grid-item">And you will recognize him by this sign: You will find a baby wrapped snugly in strips of cloth, lying in a manger.”</p>
+								<p class="grid-item verse-number">13</p>
+								<p class="grid-item">Suddenly, the angel was joined by a vast host of others—the armies of heaven—praising God and saying,</p>
+								<p class="grid-item verse-number">14</p>
+								<p class="grid-item">“Glory to God in highest heaven, and peace on earth to those with whom God is pleased.”</p>
+								<p class="grid-item verse-number">15</p>
+								<p class="grid-item">When the angels had returned to heaven, the shepherds said to each other, “Let’s go to Bethlehem! Let’s see this thing that has happened, which the Lord has told us about.”</p>
+								<p class="grid-item verse-number">16</p>
+								<p class="grid-item">They hurried to the village and found Mary and Joseph. And there was the baby, lying in the manger.</p>
+								<p class="grid-item verse-number">17</p>
+								<p class="grid-item">After seeing him, the shepherds told everyone what had happened and what the angel had said to them about this child.</p>
+								<p class="grid-item verse-number">18</p>
+								<p class="grid-item">All who heard the shepherds’ story were astonished,</p>
+								<p class="grid-item verse-number">19</p>
+								<p class="grid-item">but Mary kept all these things in her heart and thought about them often.</p>
+								<p class="grid-item verse-number">20</p>
+								<p class="grid-item">The shepherds went back to their flocks, glorifying and praising God for all they had heard and seen. It was just as the angel had told them.</p>
+								<p class="grid-item verse-number">21</p>
+								<p class="grid-item">Eight days later, when the baby was circumcised, he was named Jesus, the name given him by the angel even before he was conceived.</p>
+								<p class="grid-item verse-number">22</p>
+								<p class="grid-item">Then it was time for their purification offering, as required by the law of Moses after the birth of a child; so his parents took him to Jerusalem to present him to the Lord.</p>
+								<p class="grid-item verse-number">23</p>
+								<p class="grid-item">The law of the Lord says, “If a woman’s first child is a boy, he must be dedicated to the Lord.”</p>
+								<p class="grid-item verse-number">24</p>
+								<p class="grid-item">So they offered the sacrifice required in the law of the Lord—“either a pair of turtledoves or two young pigeons.”</p>
+								<p class="grid-item verse-number">25</p>
+								<p class="grid-item">At that time there was a man in Jerusalem named Simeon. He was righteous and devout and was eagerly waiting for the Messiah to come and rescue Israel. The Holy Spirit was upon him</p>
+								<p class="grid-item verse-number">26</p>
+								<p class="grid-item">and had revealed to him that he would not die until he had seen the Lord’s Messiah.</p>
+								<p class="grid-item verse-number">27</p>
+								<p class="grid-item">That day the Spirit led him to the Temple. So when Mary and Joseph came to present the baby Jesus to the Lord as the law required,</p>
+								<p class="grid-item verse-number">28</p>
+								<p class="grid-item">Simeon was there. He took the child in his arms and praised God, saying,</p>
+								<p class="grid-item verse-number">29</p>
+								<p class="grid-item">“Sovereign Lord, now let your servant die in peace, as you have promised.</p>
+								<p class="grid-item verse-number">30</p>
+								<p class="grid-item">I have seen your salvation,</p>
+								<p class="grid-item verse-number">31</p>
+								<p class="grid-item">which you have prepared for all people.</p>
+								<p class="grid-item verse-number">32</p>
+								<p class="grid-item">He is a light to reveal God to the nations, and he is the glory of your people Israel!”</p>
+								<p class="grid-item verse-number">33</p>
+								<p class="grid-item">Jesus’ parents were amazed at what was being said about him.</p>
+								<p class="grid-item verse-number">34</p>
+								<p class="grid-item">Then Simeon blessed them, and he said to Mary, the baby’s mother, “This child is destined to cause many in Israel to fall, and many others to rise. He has been sent as a sign from God, but many will oppose him.</p>
+								<p class="grid-item verse-number">35</p>
+								<p class="grid-item">As a result, the deepest thoughts of many hearts will be revealed. And a sword will pierce your very soul.”</p>
+								<p class="grid-item verse-number">36</p>
+								<p class="grid-item">Anna, a prophet, was also there in the Temple. She was the daughter of Phanuel from the tribe of Asher, and she was very old. Her husband died when they had been married only seven years.</p>
+								<p class="grid-item verse-number">37</p>
+								<p class="grid-item">Then she lived as a widow to the age of eighty-four. She never left the Temple but stayed there day and night, worshiping God with fasting and prayer.</p>
+								<p class="grid-item verse-number">38</p>
+								<p class="grid-item">She came along just as Simeon was talking with Mary and Joseph, and she began praising God. She talked about the child to everyone who had been waiting expectantly for God to rescue Jerusalem.</p>
+								<p class="grid-item verse-number">39</p>
+								<p class="grid-item">When Jesus’ parents had fulfilled all the requirements of the law of the Lord, they returned home to Nazareth in Galilee.</p>
+								<p class="grid-item verse-number">40</p>
+								<p class="grid-item">There the child grew up healthy and strong. He was filled with wisdom, and God’s favor was on him.</p>
+								<p class="grid-item verse-number">41</p>
+								<p class="grid-item">Every year Jesus’ parents went to Jerusalem for the Passover festival.</p>
+								<p class="grid-item verse-number">42</p>
+								<p class="grid-item">When Jesus was twelve years old, they attended the festival as usual.</p>
+								<p class="grid-item verse-number">43</p>
+								<p class="grid-item">After the celebration was over, they started home to Nazareth, but Jesus stayed behind in Jerusalem. His parents didn’t miss him at first,</p>
+								<p class="grid-item verse-number">44</p>
+								<p class="grid-item">because they assumed he was among the other travelers. But when he didn’t show up that evening, they started looking for him among their relatives and friends.</p>
+								<p class="grid-item verse-number">45</p>
+								<p class="grid-item">When they couldn’t find him, they went back to Jerusalem to search for him there.</p>
+								<p class="grid-item verse-number">46</p>
+								<p class="grid-item">Three days later they finally discovered him in the Temple, sitting among the religious teachers, listening to them and asking questions.</p>
+								<p class="grid-item verse-number">47</p>
+								<p class="grid-item">All who heard him were amazed at his understanding and his answers.</p>
+								<p class="grid-item verse-number">48</p>
+								<p class="grid-item">His parents didn’t know what to think. “Son,” his mother said to him, “why have you done this to us? Your father and I have been frantic, searching for you everywhere.”</p>
+								<p class="grid-item verse-number">49</p>
+								<p class="grid-item">“But why did you need to search?” he asked. “Didn’t you know that I must be in my Father’s house?”</p>
+								<p class="grid-item verse-number">50</p>
+								<p class="grid-item">But they didn’t understand what he meant.</p>
+								<p class="grid-item verse-number">51</p>
+								<p class="grid-item">Then he returned to Nazareth with them and was obedient to them. And his mother stored all these things in her heart.</p>
+								<p class="grid-item verse-number">52</p>
+								<p class="grid-item">Jesus grew in wisdom and in stature and in favor with God and all the people.</p>
+							</div>
+						</div>
+						<div class="cell cell--1of4">
+							<div class="language-name text--center">
+								<h2>Lukase 2</h2>
+								<h3>Denya &mdash; Cameroon</h3>
+							</div>
+							<div class="overflow--scroll grid-container">
+								<p class="grid-item verse-number">1</p>
+								<p class="grid-item">Né gébé ɛyigémbɔ, Ɔgɔstɔs abɔ́ alu *Mfwa kpaa né malɔ yi álú ntente *Rom. Afyɛ́ ɛbɛ́ nnó ápá bɔɔ́ ako abi álú né malɔ ayi ábɔ́ álú nte gefwa jií. Gɛ́ ndɔ mbɛ ayi alɔ mampáné bɔɔ́ na,</p>
+								<p class="grid-item verse-number">2</p>
+								<p class="grid-item">né gébé ɛyigembɔ Kwirinɔs alu gɔmena né gebagé mewaá Siriya.</p>
+								<p class="grid-item verse-number">3</p>
+								<p class="grid-item">Ndɛre ɛlúmbɔ, yɛ́ndémuú afɛ́ né gebagé melɔ wuú mansá mabɔ mií mmu bɔ ŋwɛ abi ápáne bɔɔ́.</p>
+								<p class="grid-item verse-number">4-5</p>
+								<p class="grid-item">Josɛf atané melɔ́ Nasarɛt né gebagé mewaá Galilií, asɛ Mɛri ayi ɛbwɔ́ ányɛ́meno mambá atɛ, áfɛ́ né Bɛtɛlɛhɛm mmu Judiya mbaá ayi abɔ́ ábyɛné Dɛvid mfwa nyá *Isrɛli, mánsá mabɔ bwɔ́. Josɛf afɛ́ ɛ́wu gétúgé alú mpyáné Dɛvid. Gébé yimbɔ ntó Meri alu ne unɛ.</p>
+								<p class="grid-item verse-number">6</p>
+								<p class="grid-item">Ndɛre ɛbwɔ́ álú ɛwú, gébé gekwáné ɛyígé Mɛri abyɛ́né maá yimbɔ.</p>
+								<p class="grid-item verse-number">7</p>
+								<p class="grid-item">Ne abyɛ maá mbɛ wuú mende. Afyalé ji ne ubaá mandeé, abelé ji mmu gekú mbaá utú unyɛɛ́ menyɛɛ́, néndé melu ɛpɔ́ nyá ɛwé ɛbwɔ́ achwɔgé ábélege mmu. Ámbamé magɔ́nŋme ne Makiɛ́nné Ɛsɔwɔ</p>
+								<p class="grid-item verse-number">8</p>
+								<p class="grid-item">Ɛké ɛpyɛmbɔ, ande fɔ́ álú né mewaá kwɔ́kwɔ́lé ne Bɛtɛlɛhɛm, ábáme magɔ́ŋme bwɔ́ ne utuú.</p>
+								<p class="grid-item verse-number">9</p>
+								<p class="grid-item">Ne áké ápɛ́le *Ɛkiɛ́nné Ɛsɔwɔ ɛkwɔ́ ɛbwɔ́ mbɛ ushu ne geŋgbɔ́gé Ata gégɛné gegyá ɛbwɔ́ mme. Ɛfɔ ɛkwɔ́ ɛbwɔ́ metɔɔ́ dɔɔ́.</p>
+								<p class="grid-item verse-number">10</p>
+								<p class="grid-item">Yɛ́mbɔ Ɛkiɛ́nné Ɛsɔwɔ ɛke, “Défɔgé, nchwɔ́ ɛnyú ne genchánchágé abya ayi álú ne gejamégé nechɔ́chɔ́ mbaá bɔɔ́ ako.</p>
+								<p class="grid-item verse-number">11</p>
+								<p class="grid-item">Fina né melɔ Mfwa Dɛvid, ábyɛ́ Mempoó nyú, alu Ata, Muú yi Ɛsɔwɔ akweré ji ɛlá gefwa.</p>
+								<p class="grid-item verse-number">12</p>
+								<p class="grid-item">Ne gepɔ ɛyi gelɛ́rege nyɛ́ ɛnyú nnó gɛ́ maá yimbɔ na, gélú nnó degɛne nyɛ maá yi áfyálé ji ne ubaá mandeé, ábelé ji mmu gekú, melu ɛwé utú unyɛɛ́ menyɛɛ́.”</p>
+								<p class="grid-item verse-number">13</p>
+								<p class="grid-item">Wyɛ́ mbélépó mbɔ, áké ápɛ́lé, ɛkwɔ́ makiɛ́nné Ɛsɔwɔ ɛtané mfaánebuú ɛchwɔ cho ne ɛwé ɛbɔɔ́ mbɛ, álɔ mánkwáné, áfɛ́ɛge Ɛsɔwɔ ake:</p>
+								<p class="grid-item verse-number">14</p>
+								<p class="grid-item">“Ngɔ́ ábɛ́ ne Ata Ɛsɔwɔ ayí álú né mfaánebuú ayi mfaá mfaá, achyɛ́ nesɔ ne bɔɔ́ mme néndé agboó ne ɛbwɔ́.”</p>
+								<p class="grid-item verse-number">15</p>
+								<p class="grid-item">Makiɛ́nné yimbɔ ályágé ɛbwɔ́, ákéré meso né mfaanebuú. Ne ámbamé magɔ́nŋme áke ne atɛ, “Déjyɛ́ dégɛ́ geno ɛyi gépyɛ́ né Bɛtɛlɛhɛm ɛyígé Ata Ɛsɔwɔ agaré ɛsé.”</p>
+								<p class="grid-item verse-number">16</p>
+								<p class="grid-item">Mbɔntó ne ɛbwɔ́ ákwilé wáwá ákwɔ́négé, ágɛ́ Josɛf ne Mɛri chóncho ne maá yimbɔ ndɛre ábelé ji mmu gekú.</p>
+								<p class="grid-item verse-number">17</p>
+								<p class="grid-item">Ndɛre ágɛné ɛbwɔ́, álɔ mangaré unó uko ɛbí ɛkiɛ́nné Ɛsɔwɔ ɛjɔɔ́, gétúgé maá yina.</p>
+								<p class="grid-item verse-number">18</p>
+								<p class="grid-item">Bɔɔ́ ako bí áwuú mechɔ́ ɛwé ámbamé magɔ́ŋme ájɔɔ́, ála mano mekpo fuú.</p>
+								<p class="grid-item verse-number">19</p>
+								<p class="grid-item">Yɛ́mbɔ Mɛri awuúgé depɔ ɛti deko, afyɛ mmu metɔɔ́ wuú afɛ́régé yɛ́ndégébé.</p>
+								<p class="grid-item verse-number">20</p>
+								<p class="grid-item">Bɔɔ́ bi ábáme mágɔ́nŋme, ákérégé meso, áchyɛge ngɔ́ ne áfɛ́ɛge Ɛsɔwɔ mbaá depɔ tiré bwɔ́ áwuú ne ágɛné. Unó bi upyɛ janja ndɛre ɛkiɛ́nné Ɛsɔwɔ ɛgaré bwɔ́. Áfyɛ́ maá yimbɔ mabɔ nnó Jisɔs</p>
+								<p class="grid-item verse-number">21</p>
+								<p class="grid-item">Uwyá ukoó, ne gébé ɛyígé ɛbwɔ́ ásɔ maá *nsɔ́ gékwané, ne ɛbwɔ́ áfyɛ́ ji mabɔ nnó Jisɔs, mabɔ mí Ɛkiɛ́nné Ɛsɔwɔ ɛbɔ́ ɛfyɛ́ ji ne mma wuú alé kpá unɛ bií. Álɛré maá ayi ákuú ji Jisɔs mbaá Ɛsɔwɔ</p>
+								<p class="grid-item verse-number">22</p>
+								<p class="grid-item">Ne gébégé gepúgé buú getyaágé, gébé gékwané ɛyígé Josɛf ne *Mɛri ájyɛ pyɛ́ *Gepɛ ndɛre ásámé né mabɛ Mosis, ne ákpa maá bwɔ́ manjyɛ mfaá Jɛrosalɛ nnó álɛré ji mbaá Ɛsɔwɔ.</p>
+								<p class="grid-item verse-number">23</p>
+								<p class="grid-item">Ndɛre ásamé né ŋwɛ Ɛsɔwɔ nnó, “Yɛnde mambɛ maá ayi alú mende, ábɔ́ manchyɛ́ ji mbaá Ɛsɔwɔ.” 24Ne áfɛ́ ntó áchyɛɛ́ *gepɛ ɛyigémbɔ ɛyigé gelú, “upwene mewaá upea, mbɔgé upɔ́ áchyɛge baá upwene melɔ ápeá nnó ápyɛ́ gepɛ wyɛ́ ndɛre asamé né ŋwɛ Ɛsɔwɔ.”</p>
+								<p class="grid-item verse-number">24</p>
+								<p class="grid-item">Ne áfɛ́ ntó áchyɛɛ́ *gepɛ ɛyigémbɔ ɛyigé gelú, “upwene mewaá upea, mbɔgé upɔ́ áchyɛge baá upwene melɔ ápeá nnó ápyɛ́ gepɛ wyɛ́ ndɛre asamé né ŋwɛ Ɛsɔwɔ.”</p>
+								<p class="grid-item verse-number">25</p>
+								<p class="grid-item">Né gébé ɛyigémbɔ, mende fɔ alu nyá né Jɛrosalɛ ákúu ji nnó Simyɔn; alu cho né ɛ́gbɛ́ Ɛsɔwɔ ne anoge ji, ne ji ntó abɔ agile Ɛsɔwɔ nnó áféré bɔɔ́ Isrɛli né mbaá ɛfwyale. *Mendoó Ukpea ɛlú nyá ne ji.</p>
+								<p class="grid-item verse-number">26</p>
+								<p class="grid-item">Mendoó Ukpea ɛbɔ́ ɛpyɛ Simyɔn akaá nnó aságé gbó ayi álá gɛ́ fɔ́ *Muú yi Ɛsɔwɔ akweré ji ɛlá gefwa, ayi Ɛsɔwɔ abɔ́ anyɛ́meno nnó atɔme.</p>
+								<p class="grid-item verse-number">27</p>
+								<p class="grid-item">Bií bi Mɛri ne Josɛf ábɔ́ áchwɔ né Jɛrosalɛ, manlɛré Jisɔs mbaá Ɛsɔwɔ ndɛre ɛbɛ́ Mosis ɛgaré, Mendoó Ukpea ɛpyɛ́ Simyɔn afɛ́ né ɛcha upɛ Ɛsɔwɔ. Ndɛre akpɛné agɛ́ maá yimbɔ,</p>
+								<p class="grid-item verse-number">28</p>
+								<p class="grid-item">asɛ ji né amu jií, alɔ manchyɛ́gé matame ne mamfɛ́gé Ɛsɔwɔ ake:</p>
+								<p class="grid-item verse-number">29</p>
+								<p class="grid-item">“Ata menomenyɛɛ́ wyɛ́ ɛlú nana wáwálé, mbɔgé ɛjií wɔ ɔkaáge lya maá utɔɔ́ wyɛ́ agbó pere,</p>
+								<p class="grid-item verse-number">30</p>
+								<p class="grid-item">néndé nkpá amɛ ya ngɛ́ Menchyɛ Geŋwá ayi ɔbɔ́ ɔnyɛ́meno.</p>
+								<p class="grid-item verse-number">31</p>
+								<p class="grid-item">Ne wɔ ɔtɔ ji nnó bɔɔ́ ako ágɛ́ ji.</p>
+								<p class="grid-item verse-number">32</p>
+								<p class="grid-item">Abɛ nyɛ mewɛ́ mbaá bɔɔ́ abi álá pɔ́ bɔɔ́ Jus, nnó ɛbwɔ́ ákaá wɔ ntó. Apyɛ nyɛ melɔ́ Isrɛli ɛ́kwɔ́ ŋgɔ.”</p>
+								<p class="grid-item verse-number">33</p>
+								<p class="grid-item">Mma ne ntɛ áwuúgé mechɔ ɛwe Simyɔn ajɔɔ́ gétúgé maá bwɔ́, ála meno mekpo fuú.</p>
+								<p class="grid-item verse-number">34</p>
+								<p class="grid-item">Simyɔn anérége manjɔɔ́ depɔ ɛtire na, achyɛɛ́ ɛbwɔ́ mejé Ɛsɔwɔ. Ɛké ɛwyágé ama kuú Mɛri mmá Jisɔs aké, “Wuúgé! Ɛsɔwɔ ajyá maá yiná nnó apyɛ́ gejamé bɔɔ́ Isrɛli ákwé ne mambwɛɛ́ abifɔ mfaá. Abɛ nyɛ ntó ndɛre gepɔ ɛyígé Ɛsɔwɔ jimbɔɔ́, ne gejamégé bɔɔ́ áshyá nyɛ ji.</p>
+								<p class="grid-item verse-number">35</p>
+								<p class="grid-item">Apyɛgé mbɔ, ɛlɛrege gbɔ́gɔ́nɔ́ depɔ ɛtiré ɛbwɔ́ ábií mmu matɔɔ́ bwɔ́. Ne mesómé maá wyɛ́ yina ɛbɛ́ɛ nyɛ wɔ metɔɔ́ ɛké aparaja ne ájómé wɔ.”</p>
+								<p class="grid-item verse-number">36</p>
+								<p class="grid-item">Gébé ɛyigémbɔ ntó, mekoó mendée fɔ, alu né Jerósálɛ akamege Ana. Alu muú ɛkpave Ɛsɔwɔ ayi mendée. Ɛsɔwɔ agárege ji depɔ mangárégé bɔɔ́ bií. Alu maá Fanuɛl ayi alú mpyáne Ɛkwɔ́ Ashyɛ. Abá menɔ abɛlé aŋmɛ́ akénéama ne menɔ́ wuú ágbó.</p>
+								<p class="grid-item verse-number">37</p>
+								<p class="grid-item">Tɛ́ gébé ɛyigémbɔ ala mekwí mendée. Yɛ́ndégébé alu mmu ɛcha upɛ Ɛsɔwɔ, afɛge Ɛsɔwɔ ne anɛnemmyɛ, utuú ne ŋwɔmésé, alyage menyɛɛ́ kpékpé. Né gébé ɛyigémbɔ, alu usaá aŋmɛ uni meso ɛníi.</p>
+								<p class="grid-item verse-number">38</p>
+								<p class="grid-item">Ama chwɔ́ né ɛcha upɛ Ɛsɔwɔ, wyɛ́ gébé yimbɔ ntó ne Mɛri ne Josɛf achwɔ́ ne maá bwɔ́. Ana agɛ́gé maá yina, alɔ mánfɛɛ́gé Ɛsɔwɔ, agarege depɔ ɛtíré maá yi mbaá bɔɔ́ ako abi ágili nnó Ɛsɔwɔ áféré bɔɔ́ Jɛrosalɛ né ɛfwyale.</p>
+								<p class="grid-item verse-number">39</p>
+								<p class="grid-item">Josɛf ne Mɛri ánérégé yɛndé genó ndɛre ɛbɛ Ɛsɔwɔ ɛgaré, ákpá maá bwɔ́ ákéré meso né Nasarɛt *gebagé mewaá Galilií.</p>
+								<p class="grid-item verse-number">40</p>
+								<p class="grid-item">Maá yimbɔ alu ɛfɛɛ́, awɛne wyɛ́ wɛ́ne ne gelu, ne ɛshyɛ chóncho ne deŋgá. Ne mejé Ɛsɔwɔ ɛlú ne ji. Maá yi ákúu ji Jisɔs alu né ɛcha upɛ Ɛsɔwɔ né Jɛrosalɛ</p>
+								<p class="grid-item verse-number">41</p>
+								<p class="grid-item">Yɛ́ndé nŋmɛ, mmá ne ntɛ Jisɔs ájyɛ né Jɛrosalɛ manjyɛ nyɛ́ ɛpaá *koó upú ɛwé Ɛsɔwɔ aferé nyá bɔɔ́ Isrɛli né defwɛ́.</p>
+								<p class="grid-item verse-number">42</p>
+								<p class="grid-item">Jisɔs akwɔ́négé aŋmɛ́ áfyanéápeá, áfɛ́ ndɛre ɛbwɔ́ ájyɛ mɛ́, ndɛre ɛbwɔ́ ájyɛ ásɛ ntó Jisɔs.</p>
+								<p class="grid-item verse-number">43</p>
+								<p class="grid-item">Ɛpaá ɛ́byɛgé, álɔ mankeré meso melɔ bwɔ́. Ne Jisɔs alá meso né Jɛrosalɛ ayi mmá wúu ne ntɛ wuú álá kaá wɔ́.</p>
+								<p class="grid-item verse-number">44</p>
+								<p class="grid-item">Ábɔ́ áfɛre nnó akɛ geluá ne bɔɔ́ abifɔ. Ákɛ kpaá bií kpogele. Ne gébégé ákɛlé ji né geluágé aŋmɛ́ ne ajeé bwɔ́,</p>
+								<p class="grid-item verse-number">45</p>
+								<p class="grid-item">ágɛ ji wɔ́. Álɔ mankere meso né Jɛrosalɛ mankɛ́légé ji.</p>
+								<p class="grid-item verse-number">46</p>
+								<p class="grid-item">Né ndɔ ɛ́lɛɛ́ ɛkwɔnegé ágɛ́ ji mmu ɛcha upɛ Ɛsɔwɔ. Abɔ́ alu geluá ne *Ánlɛré mabɛ́ Ɛsɔwɔ. Awuú genó ɛyige álɛ́rege ne amá agige ntó bwɔ́ bɔ nkwɛ.</p>
+								<p class="grid-item verse-number">47</p>
+								<p class="grid-item">Bɔɔ́ ako abi áwuú genó ɛyigé ji ajɔ́ɔge álá mano mekpo fuú néndé awya uchánchá dɔɔ́ ne ashuúge ɛbwɔ́ meko ne déŋga.</p>
+								<p class="grid-item verse-number">48</p>
+								<p class="grid-item">Ndɛre mmá wuú ne ntɛ wuú ágɛné ji, matyɛ mawá ɛbwɔ́ meno. Mmá aké, “Maá wa ɔpyɛ mbɔ ɛsé nnó? Ɛ́sé ne ntɛ wyɛ́ dekɛlé wɔ́ kaá depwaá, delɔ manfɔ nnó ndɔ fɔ genó ne gepyɛ́ wɔ.”</p>
+								<p class="grid-item verse-number">49</p>
+								<p class="grid-item">Ashuú bwɔ́ meko aké, “Ulannó ɛnyú dékɛ́lege mɛ, dekágé fɔ́ nnó mbɔ́ mambɛ́ fa mmu ɛcha ntɛ waá wɔ́?”</p>
+								<p class="grid-item verse-number">50</p>
+								<p class="grid-item">Yɛ́lé ashuú ɛbwɔ́ meko yimbɔ, ákaá fɔ́ ula mechɔ́ ɛwé ji ajɔɔ́ wɔ́.</p>
+								<p class="grid-item verse-number">51</p>
+								<p class="grid-item">Jisɔs akéré meso ne ɛbwɔ́ né melɔ bwɔ́ Nasarɛt, alu ne bwɔ́, awuú majyɛɛ́ chánchá. Ndɛre depɔ ti depyɛ mbɔ́, Mmá wuú afyɛ́ deti deko né metɔɔ́ wuú ne ateé yɛndégébé.</p>
+								<p class="grid-item verse-number">52</p>
+								<p class="grid-item">Ɛfɛɛ́, Jisɔs awɛne ne menyamyɛ ne deŋgá ne gelú, awya mejé né ɛ́gbɛ́ Ɛsɔwɔ ne bɔɔ́ agbóo ne ji.</p>
+							</div>
+						</div>
+						<div class="cell cell--1of4">
+							<div class="language-name text--center">
+								<h2>San Lucas 2</h2>
+								<h3>Mazatec &mdash; Mexico</h3>
+							</div>
+							<div class="overflow--scroll grid-container">
+								<p class="grid-item verse-number">1</p>
+								<p class="grid-item">Koi na̱chrjein k'e̱ nga tjín‑la̱ xá ítjòn César Augusto tsjachrje jngoò o̱kixi̱ nga ngats'iì xi̱ta̱ na̱xa̱ndá xi otíxoma‑la̱ Roma, xo̱jo̱ón si̱t'aà 'ín‑la̱.</p>
+								<p class="grid-item verse-number">2</p>
+								<p class="grid-item">Jè xo̱jo̱n censo xi kisindaà ítjòn k'e̱ nga tíjna gobernador xi̱ta̱ xi 'mì Cirenio ján i̱'nde ñánda 'mì Siria.</p>
+								<p class="grid-item verse-number">3</p>
+								<p class="grid-item">Kiì yije xi̱ta̱ nga kiì kít'aà xo̱jo̱n yijo‑la̱ nga jngoò ìjngoò na̱xa̱ndá‑la̱ xi chja̱‑ne.</p>
+								<p class="grid-item verse-number">4</p>
+								<p class="grid-item">José itjo‑ne Nazaret, na̱xa̱ndá ts'e̱ Galilea, kiì nangui ñánda 'mì Judea ya̱ na̱xa̱ndá Belén ñánda kits'iìn xi̱ta̱ ítjòn xi David ki'mì nga jè José, tje̱‑la̱ ts'e̱ David‑né.</p>
+								<p class="grid-item verse-number">5</p>
+								<p class="grid-item">Kiì kít'aà xo̱jo̱n yijo‑la̱; ti̱koa̱á kiì jè María, chjo̱ón‑la̱ xi tíjna'ñó‑la̱ nga jè ki̱xan‑ko̱, ta̱nga jyeé ki'ndí 'ya.</p>
+								<p class="grid-item verse-number">6</p>
+								<p class="grid-item">K'e̱ nga jye títsa̱jna Belén, María ijchò na̱chrjein‑la̱ nga kits'iìn ki'ndí‑la̱.</p>
+								<p class="grid-item verse-number">7</p>
+								<p class="grid-item">Kits'iìn ki'ndítjòn‑la̱ xi ndí ki'ndí x'i̱n; kisìkájté nikje‑la̱; ya̱ kisìkánaya kaxa̱ ñánda kjèn‑ya cho̱, nga mì ti̱ kiì tjín‑ne i̱'nde ya̱ ni'ya ñánda ma nìkjáya. Kií komà k'e̱ nga jñà àkja̱le̱‑la̱ Nainá j'iìkon jñà paxtò</p>
+								<p class="grid-item verse-number">8</p>
+								<p class="grid-item">Ya̱ chrañàt'aà‑la̱ Belén títsa̱jna paxtò xi nchisíkinda̱ cho̱ orrè‑la̱ nga ni̱tje̱n.</p>
+								<p class="grid-item verse-number">9</p>
+								<p class="grid-item">Tà ni̱to̱ón ijchòkon jngoò àkja̱le̱‑la̱ Nainá. Jè kjoa̱jeya‑la̱ Nainá xi 'ñó ote kji, kisìhiseèn yije kóho̱kji jngoò itjandiì ñánda títsa̱jna jñà paxtò. K'e̱ nga kijtseè, tsí ndaà kitsakjòn.</p>
+								<p class="grid-item verse-number">10</p>
+								<p class="grid-item">Jè àkja̱le̱ kitsò‑la̱: ―Kiì tsakjoòn‑jèn; 'a̱n, koií xá j'i̱‑na nga síkí'nchré jngoò‑nò 'én xi̱tse̱ xi ndaà tsò xi 'ñó kjo̱tsja‑la̱ ngats'iì na̱xa̱ndá:</p>
+								<p class="grid-item verse-number">11</p>
+								<p class="grid-item">I̱'ndei̱ kats'iìn jngoò ki'ndí ya̱ na̱xa̱ndá‑la̱ David jè xi ko̱chrjekàjiìn‑ná kjo̱'in, jè xi Cristo, [xi̱ta̱ xi xó kisìkasén‑ne Nainá], nga jè ko̱tìxoma‑ná.</p>
+								<p class="grid-item verse-number">12</p>
+								<p class="grid-item">Tjín jngoò seña nga kixi̱ kjoa̱: sa̱kò jngoò‑nò ki'ndí xi tsjájtéjiìn nikje‑la̱; kjinaya kaxa̱ ñánda kjèn‑ya cho̱.</p>
+								<p class="grid-item verse-number">13</p>
+								<p class="grid-item">Ti̱k'e̱‑ne kjìn jchán àkja̱le̱ tsatsejèn‑kjoò‑ìsa xi inchrobà‑ne ngajmiì xi 'nga kisìkíjna Nainá. Kitsò:</p>
+								<p class="grid-item verse-number">14</p>
+								<p class="grid-item">Nainá kàtas'e‑la̱ kjoa̱jeya ján ngajmiì; ko̱ i̱ i̱t'aà nangui, 'nchán kàtas'e kjoa̱, i̱t'aà ts'e̱ xi̱ta̱ xi tjín‑la̱ kjo̱ndaà‑la̱ Nainá.</p>
+								<p class="grid-item verse-number">15</p>
+								<p class="grid-item">K'e̱ nga kiì‑ne jñà àkja̱le̱ ján ngajmiì, jñà paxtò kitsò‑la̱ xíkjín: ―Tíkjiaán skanda Belén nga jcha̱á kjoa̱ xi kòma koni s'ín kàsìkí'nchré‑ná Na̱'èn‑ná.</p>
+								<p class="grid-item verse-number">16</p>
+								<p class="grid-item">Ni̱to̱ón kiì jñà paxtò ján Belén; k'e̱ nga ijchò, kisakò‑la̱ ñánda tíjna María ko̱ José, koa̱ jè ki'ndí, kjinaya kaxa̱ ñánda kjèn‑ya cho̱.</p>
+								<p class="grid-item verse-number">17</p>
+								<p class="grid-item">K'e̱ nga kijtseèxkon ki'ndí jè, tsibéno̱jmí yije koni s'ín kitsò jè àkja̱le̱ i̱t'aà ts'e̱ ki'ndí.</p>
+								<p class="grid-item verse-number">18</p>
+								<p class="grid-item">Ngats'iì xi̱ta̱ xi kiì'nchré koni s'ín kitsò jñà paxtò tà k'oa̱á komà‑la̱.</p>
+								<p class="grid-item verse-number">19</p>
+								<p class="grid-item">Ta̱nga jè María ya̱á tsibíjiìn yije i̱jiìn ini̱ma̱‑la̱ jñà 'én xi kis'eno̱jmí‑la̱. 'Ñó kisìkítsjeèn‑jiìn kjoa̱ koi.</p>
+								<p class="grid-item verse-number">20</p>
+								<p class="grid-item">Kiì ìjngoò k'a‑ne jñà paxtò; jeya tsachrje ti̱koa̱ ndaà kisìkíjna Nainá ngats'iì kjoa̱ xi kiì'nchré ko̱ xi kijtseè, nga nguì k'oa̱á s'ín komà koni s'ín kis'eno̱jmí‑la̱. K'e̱ nga jñà xi̱ta̱ jchínga‑la̱ Jesús kiìko̱ i̱ngo̱ ítjòn ya̱ Jerusalén nga kisìnga̱tsja Nainá</p>
+								<p class="grid-item verse-number">21</p>
+								<p class="grid-item">K'e̱ nga ijchò jiìn na̱chrjein nga kits'iìn ki'ndí jè, kisit'aà chi̱ba̱‑la̱ yijo‑la̱ kjoa̱ ts'e̱ circuncisión; Jesús kisit'aà 'ín‑la̱ koni s'ín kitsò àkja̱le̱‑la̱ Nainá k'e̱ nga ti̱sa̱ kisinaya'ma i̱ndso̱'ba̱ nea̱‑la̱.</p>
+								<p class="grid-item verse-number">22</p>
+								<p class="grid-item">Ijchò na̱chrjein nga k'oa̱s'ín s'ín xi̱ta̱ koi, koni s'ín tíchja̱ kjo̱tíxoma‑la̱ Nainá xi kiskiì Moisés, mé‑ne jè María tsjeè kíjna‑ne nguixko̱n Nainá. Na̱chrjein koi, kiìko̱ Jesús i̱ngo̱ ítjòn ya̱ Jerusalén nga kisìnga̱tsja Nainá.</p>
+								<p class="grid-item verse-number">23</p>
+								<p class="grid-item">K'oa̱á s'ín tjít'aà kjo̱tíxoma‑la̱ Nainá xi kiskiì Moisés: “Ngats'iì ki'ndí x'i̱n xi jts'ín ítjòn, ts'e̱é Nainá, jè ko̱nga̱tsja.”</p>
+								<p class="grid-item verse-number">24</p>
+								<p class="grid-item">Xi̱ta̱ jchínga‑la̱ Jesús kiìko̱ kjo̱tjò‑la̱ nguixko̱n Nainá; jò tjo̱ni̱'ña̱ ko̱ tsà jò pichón koni s'ín tjín kjo̱tíxoma‑la̱ Nainá.</p>
+								<p class="grid-item verse-number">25</p>
+								<p class="grid-item">Koi na̱chrjein ján Jerusalén tíjna jngoò xi̱ta̱ kixi̱ xi ndaà beèxkón Nainá, Simeón 'mì. Ti̱koa̱á tíkoña‑la̱ jè xi si̱ìkíjnandei̱í na̱xa̱ndá Israel; jè Simeón, ya̱á tíjnako̱ Ini̱ma̱ Tsjeè‑la̱ Nainá.</p>
+								<p class="grid-item verse-number">26</p>
+								<p class="grid-item">Jè Ini̱ma̱ Tsjeè‑la̱ Nainá k'oa̱á s'ín tsibéno̱jmíya‑la̱ Simeón nga mìkiì ki̱yá skanda k'e̱ nga skoe̱xkon Cristo xi Nainá si̱ìkasén.</p>
+								<p class="grid-item verse-number">27</p>
+								<p class="grid-item">Jè Ini̱ma̱‑la̱ Nainá kisìkasén Simeón ján i̱ngo̱ ítjòn Jerusalén. K'e̱ nga ijchòko̱ Jesús jñà xi̱ta̱ jchínga‑la̱ mé‑ne nga kisìkitasòn‑ne koni s'ín síjé kjo̱tíxoma‑la̱,</p>
+								<p class="grid-item verse-number">28</p>
+								<p class="grid-item">Simeón kiskoé ki'ndí jè, tsohóya tsja; 'nga kisìkíjna Nainá. Kitsò:</p>
+								<p class="grid-item verse-number">29</p>
+								<p class="grid-item">Na̱'èn, jyeé kòbitasòn 'én‑lè koni s'ín ki'mì‑ná, i̱'ndei̱, 'nchán kàtiyaà 'a̱n xi chi̱'nda‑lè ma.</p>
+								<p class="grid-item verse-number">30</p>
+								<p class="grid-item">Jyeé kòbe‑na xkoaàn jè xi ko̱chrjekátjì‑ná kjo̱'in,</p>
+								<p class="grid-item verse-number">31</p>
+								<p class="grid-item">jè xi kànìkíjna‑osin nguixko̱n ngats'iì na̱xa̱ndá,</p>
+								<p class="grid-item verse-number">32</p>
+								<p class="grid-item">jè xi si̱ìhiseèn‑la̱ kjo̱hítsjeèn‑la̱ jñà xi̱ta̱ xi mìtsà xi̱ta̱ na̱xa̱ndá Israel. I̱t'aà ts'e̱ ki'ndí jè, na̱xa̱ndá‑lè Israel jeyaá kíjna.</p>
+								<p class="grid-item verse-number">33</p>
+								<p class="grid-item">Jñà xi̱ta̱ jchínga‑la̱ Jesús tà k'oa̱á komà‑la̱ koni s'ín kitsò Simeón i̱t'aà ts'e̱ ki'ndí‑la̱.</p>
+								<p class="grid-item verse-number">34</p>
+								<p class="grid-item">Simeón kisìjét'aà‑la̱ Nainá nga kàtasíchikon‑t'in; i̱kjoàn kitsò‑la̱ María, nea̱‑la̱ Jesús: ―I̱t'aà ts'e̱ ki'ndí jè, k'oa̱á s'ín tjínè‑la̱ nga kjìn xi̱ta̱ na̱xa̱ndá Israel ki̱tjojiìn kjo̱'in koa̱ kjìn ki̱xo̱jiìn. Seña‑la̱ Nainá kíjna</p>
+								<p class="grid-item verse-number">35</p>
+								<p class="grid-item">mé‑ne nga jcha̱‑la̱ kó s'ín tjín kjo̱hítsjeèn‑la̱ nga jngoò ìjngoò xi̱ta̱, ta̱nga kjìn xi̱ta̱ xi mìkiì ko̱kjeiín‑la̱; ti̱koa̱á ngaji̱, k'oa̱á s'ín s'e̱‑lè kjo̱'on‑takòn koni tsà jngoò ki̱cha̱ ndojò ko̱tokjá ini̱ma̱‑lè.</p>
+								<p class="grid-item verse-number">36</p>
+								<p class="grid-item">Ti̱koa̱á ya̱á tíjna chjo̱ón Ana xi chja̱ya 'én‑la̱ Nainá, tsòti‑la̱ Fanuel xi tje̱‑la̱ Aser. Jyeé 'ñó xi̱ta̱ jchínga. Itoò nó tsibìjnako̱ x'i̱n‑la̱.</p>
+								<p class="grid-item verse-number">37</p>
+								<p class="grid-item">Na̱chrjein koi, jè chjo̱ón Ana kò ñijòn kaàn ko̱ ñijòn nó tjín‑la̱ nga tíjna ka'àn. Ya̱á bìjnaya na̱chrjein inchijòn ya̱ ndi̱tsin i̱ngo̱ ítjòn; ko̱ na̱chrjein ko̱ ni̱tje̱n beèxkón Nainá; bítsi'ba‑la̱ koa̱ bìjnachjan.</p>
+								<p class="grid-item verse-number">38</p>
+								<p class="grid-item">Ti̱jè‑ne hora, chjo̱ón jè ijchò kasìjnat'aà chrañà‑la̱ xi̱ta̱ jchínga‑la̱ Jesús; kitsjaà‑la̱ kjo̱ndaà Nainá; kiìchja̱‑la̱ ngats'iì xi̱ta̱ i̱t'aà ts'e̱ ki'ndí jè, jñà xi ti̱koa̱ nchikoña‑la̱ nga ki̱tjotjì yije na̱xa̱ndá xi chja̱‑ne Jerusalén. K'e̱ nga kiì ìjngoò k'a‑ne Nazaret</p>
+								<p class="grid-item verse-number">39</p>
+								<p class="grid-item">José ko̱ María, k'e̱ nga jye kisìhitasòn yije koni s'ín tíchja̱ kjo̱tíxoma‑la̱ Nainá, kiì ìjngoò k'a‑ne ján Galilea ya̱ na̱xa̱ndá‑la̱ Nazaret.</p>
+								<p class="grid-item verse-number">40</p>
+								<p class="grid-item">Ki'ndí jè tímajchínga; tís'e‑la̱ nga'ñó i̱jiìn ini̱ma̱‑la̱; ti̱koa̱á ìsa̱ ndaà tímachi̱ya‑la̱; ya̱á tíjnako̱ kjo̱ndaà‑la̱ Nainá. Kií komà k'e̱ nga jè Jesús tsibìjnaya i̱ngo̱ ítjòn ján Jerusalén</p>
+								<p class="grid-item verse-number">41</p>
+								<p class="grid-item">Jñà xi̱ta̱ jchínga‑la̱ Jesús, xki̱ nó fì ya̱ Jerusalén k'e̱ nga bitjo s'eí Paxko̱.</p>
+								<p class="grid-item verse-number">42</p>
+								<p class="grid-item">Jesús, k'e̱ nga jye tjín‑la̱ tejò nó ti̱koa̱ kiì ján Jerusalén koni s'ín choòn kjo̱tíxoma ts'e̱ s'eí Paxko̱.</p>
+								<p class="grid-item verse-number">43</p>
+								<p class="grid-item">K'e̱ nga inchrobà‑ne xi̱ta̱ nga jyehet'aà s'eí, jè Jesús ya̱á tsibìjna Jerusalén; koa̱ jñà xi̱ta̱ jchínga‑la̱ mìkiì kisijiìn‑la̱ tsà ya̱ tsibìjna.</p>
+								<p class="grid-item verse-number">44</p>
+								<p class="grid-item">Jngoò na̱chrjein chinchimaya ndi̱yá. Maá‑la̱ tsà ya̱á tsóhojiìn‑la̱ jñà xi̱ta̱ xi nchifì‑ne. K'e̱ nga tsohótsjijiìn‑la̱ xíkjín ko̱ xi̱ta̱ xi beèxkon,</p>
+								<p class="grid-item verse-number">45</p>
+								<p class="grid-item">mìkiì kisakò‑la̱. K'e̱é kiì ìjngoò k'a ján Jerusalén nga kiì kátsji.</p>
+								<p class="grid-item verse-number">46</p>
+								<p class="grid-item">K'e̱ nga komà jàn na̱chrjein nga nchihótsji, kisakò‑la̱ ya̱ ndi̱tsin i̱ngo̱ ítjòn; tíjnajiìn‑la̱ xi̱ta̱ xi okóya kjo̱tíxoma‑la̱ Nainá; tí'nchré‑la̱ ti̱koa̱ tíkjònangui‑la̱.</p>
+								<p class="grid-item verse-number">47</p>
+								<p class="grid-item">Ngats'iì xi̱ta̱ xi nchi'nchré‑la̱ tà k'oa̱á komà‑la̱ jè kjo̱hítsjeèn xi tjín‑la̱ koni s'ín tíchja̱.</p>
+								<p class="grid-item verse-number">48</p>
+								<p class="grid-item">Jñà xi̱ta̱ jchínga‑la̱, k'e̱ nga kijtseè nga ya̱ tíjna, ti̱koa̱á tà k'oa̱á komà‑la̱; jè nea̱‑la̱ kitsò‑la̱: ―Ji̱ na̱'èn, ¿mé‑ne nga ko̱s'ín nìko̱‑náje̱n? Na̱'èn‑lè ko̱ 'a̱n tímakájno‑naje̱n nga kichijì, titsa̱binchaàtsji‑lèje̱n.</p>
+								<p class="grid-item verse-number">49</p>
+								<p class="grid-item">Jesús kitsò: ―¿Mé‑ne nga binchaàtsji‑ná? ¿A mì tíjiìn‑nò nga tjínè‑na nga ya̱ kóti̱jna ni'ya‑la̱ Na̱'èn‑na̱?</p>
+								<p class="grid-item verse-number">50</p>
+								<p class="grid-item">Ta̱nga jñà xi̱ta̱ jchínga‑la̱ mìkiì jahas'en‑jiìn‑la̱ jè 'én xi kitsò Jesús.</p>
+								<p class="grid-item verse-number">51</p>
+								<p class="grid-item">Jesús, kiì ìjngoò k'a‑ne ján Nazaret ko̱ nea̱‑la̱ ko̱ na̱'èn‑la̱; Jesús ndaà kisìkitasòn‑la̱ xi̱ta̱ jchínga‑la̱. Jè nea̱‑la̱ tà ya̱á tsibíjiìn‑ikon ini̱ma̱‑la̱ ngats'iì kjoa̱ koi.</p>
+								<p class="grid-item verse-number">52</p>
+								<p class="grid-item">Jesús, tímajchínga koa̱ na̱chrjein inchijòn, ìsa̱ ndaà tímachi̱ya‑la̱; ti̱koa̱ tís'e‑la̱ kjo̱ndaà‑la̱ Nainá ko̱ ts'e̱ xi̱ta̱.</p>
+							</div>
+						</div>
+						<div class="cell cell--1of4 sherpa">
+							<div class="language-name text--center">
+								<h2>लूका 2</h2>
+								<h3>Sherpa &mdash; Asia</h3>
+							</div>
+							<div class="overflow--scroll grid-container">
+								<p class="grid-item verse-number">1</p>
+								<p class="grid-item">ती पेला रोमी ग्‍येल्‍वु अगस्‍टसकी खोरे लुङ्‍बी तेरी मीतिवाला दाक दाक्‍पी क्‍येवु दासाला मिङ टिनी थो ग्‍योप सिनी क बिन्‍नोक।</p>
+								<p class="grid-item verse-number">2</p>
+								<p class="grid-item">दी मिङ थो ग्‍यकुप ति कुरेनियसकी सिरिया लुङ्‍बाला ओङ्‍ज्‍येन कितुप पेला थल्‍माला क्‍यावु यिन</p>
+								<p class="grid-item verse-number">3</p>
+								<p class="grid-item">मी तेरी खोप्‍रे मिङ थो ग्‍यकुपला दाक दाक्‍पी पगावाकी युल याङ्‍ना ग्‍येसाला गाल।</p>
+								<p class="grid-item verse-number">4</p>
+								<p class="grid-item">तमा योसेफ साङ गालील लुङ्‍बाकी नासरत नेसुर यहूदियाकी बेथलेहेम सिरुप ग्‍येल्‍वु दाऊद क्‍येवु ग्‍येसाला गाल, च्‍यिलासिसिन ती ति दाऊदकी गिपा नेमा क्‍येवु मी यिनोक।</p>
+								<p class="grid-item verse-number">5</p>
+								<p class="grid-item">तीकी खोरो जेन्‍दी कितुपला लङ्‍गुप पुम मरियम ताङ मुला मिङ थो ग्‍यकुपला गल्‍नोक। तोजो पेला मरियम ति जु चेन्‍दी नोक।</p>
+								<p class="grid-item verse-number">6</p>
+								<p class="grid-item">तिवा ते बेथलेहेमला वोतुप पेला मरियमकी जु ठिलुप पेला लेप्‍सुङ।</p>
+								<p class="grid-item verse-number">7</p>
+								<p class="grid-item">तमा तीकी खोरो पुज्‍युङ छ्‍ये ति क्‍येसुङ, ती आङा तीला छातेनला टिल्‍नी किम्‍बुर यीकी नाङ्‍ला ङ्‍याल्‍सुङ, च्‍यिलासिसिन तिवाला ते डोखाङला देतुप दासा कनी साङ माङ्‍ये। येशू क्‍येवु कोर्ला गोठालातिवाला सिक्‍यावु</p>
+								<p class="grid-item verse-number">8</p>
+								<p class="grid-item">तमा ती नुपला बेथलेहेम युलकी फेचेक चिप्‍ला दिङ्‍मा यीला गोठालातिवा खोप्‍रे लुकतिवा ल्‍हानी देनोक।</p>
+								<p class="grid-item verse-number">9</p>
+								<p class="grid-item">ती पेला देवाच्‍येनकी लेन क्‍योलुप थु च्‍यिक तिवी चाला छ्‍यार्सुङ। तमा चोवो कोन्‍छ्‍योककी मोवाकी वोसिर तिवी गारी गुरीला ग्‍यप्‍सुङ। ती थोङ्‍नी तिवा छासे ज्‍यिवा क्‍यासुङ।</p>
+								<p class="grid-item verse-number">10</p>
+								<p class="grid-item">यिने देवाच्‍येनकी लेन क्‍योलुप थु तीकी तिवाला “ज्‍यिवा माकी। ङ तेरी मीतिवी थोक्‍ला छासे गा लङ्‍गुप लेन ल्‍यामु ख्‍यिराङला तेरुपला वावु यिन।</p>
+								<p class="grid-item verse-number">11</p>
+								<p class="grid-item">हारिङ दाऊदकी ग्‍येसाला मीतिवाला दिक्‍पा ने थर ज्‍यितुप चोवो ख्रीष्‍ट# क्‍ये वे।</p>
+								<p class="grid-item verse-number">12</p>
+								<p class="grid-item">रा आङा यीला छातेनला टिल्‍नी किम्‍बुर नाङ्‍ला ङ्‍येल वोतुप थोङ्‍गिवी, ती ति ख्‍यिराङला छ्‍या तेन्‍दुप त यिन।” सिनी सिक्‍यासुङ।</p>
+								<p class="grid-item verse-number">13</p>
+								<p class="grid-item">ती पेला शार्क्येक ती देवाच्‍येनकी लेन क्‍योलुप थु मुला यम्‍बा देवाच्‍येनकी लेन क्‍योलुप थुतिवा बङी छ्‍यार्नी कोन्‍छ्‍योकला सोवा देकिन सिक्‍यासुङ,</p>
+								<p class="grid-item verse-number">14</p>
+								<p class="grid-item">“तेरी सिनाङ येर देवाच्‍येनला कोन्‍छ्‍योकला मोवा वुङ्‍शी, जम्‍बुलिङला कोन्‍छ्‍योककी सु सुला गा क्‍या वे, तिवाला लोदिमु वुङ्‍शी।”</p>
+								<p class="grid-item verse-number">15</p>
+								<p class="grid-item">तमा देवाच्‍येनकी लेन क्‍योलुप थुतिवा तिवा नेसुर क्‍येनी येर देवाच्‍येनला गल्‍सिमा गोठालातिवी च्‍यिककी च्‍यिकला सिक्‍यासुङ, “शोक, दाक्‍पु बेथलेहेमला डोप। ते गल्‍नी चोवो कोन्‍छ्‍योककी दाक्‍पुला सुङ्‍गुप ताम्‍ङे च्‍युङ्‍गुप ति ल्‍हाप।”</p>
+								<p class="grid-item verse-number">16</p>
+								<p class="grid-item">तमा तिवा छ्‍योङ्‍बाल ग्‍यम गल्‍नी मरियम ताङ योसेफ ताङ किम्‍बुर नाङ्‍ला ङ्‍यल्‍नी वोतुप आङा तीला थोङ्‍सुङ।</p>
+								<p class="grid-item verse-number">17</p>
+								<p class="grid-item">तिवी ती आङाला थोङ्‍सिमा ती आङी कोर्ला देवाच्‍येनकी लेन क्‍योलुप थुकी तिवाला सिक्‍यावु ताम्‍ङे ति मीतिवाला लाप्‍सुङ।</p>
+								<p class="grid-item verse-number">18</p>
+								<p class="grid-item">गोठालातिवी सिक्‍यावु ताम्‍ङे थोवु मीतिवा तेरी छासे हलेवा क्‍यासुङ।</p>
+								<p class="grid-item verse-number">19</p>
+								<p class="grid-item">यिने मरियमकी ति ती तेरी ताम्‍ङे खोरो सेमगी दिङ्‍ला ज्‍याक्‍नी छासे नासाम ताङ्‍सुङ।</p>
+								<p class="grid-item verse-number">20</p>
+								<p class="grid-item">गोठालातिवा खोप्‍रे थोवु ताङ थोङ्‍गुप ताम्‍ङे ति देवाच्‍येनकी लेन क्‍योलुप थुकी सिक्‍यावु दोके राङ यिन सिरुप हाक्‍कोनी कोन्‍छ्‍योकला मोवा कितुप ताङ खोला सोवा देकिन सिरा लोक्‍नी गाल्‍सुङ। येशूला मिङ तावु</p>
+								<p class="grid-item verse-number">21</p>
+								<p class="grid-item">ङ्‍यिमा ग्‍येकी छेर्मुला आङाला यहूदीतिवी च्‍येतुप लुक्‍सु कितुप पेला आङी मिङ ति येशू सिनी तासुङ। ती मिङ ति खो आमी खोकला वोतुप सिनाङ गोमाला के देवाच्‍येनकी लेन क्‍योलुप थुकी सिक्यावु मिङ यिन। आङा येशूला कोन्‍छ्‍योककी दोङ्‍ला चेक तेतुप</p>
+								<p class="grid-item verse-number">22</p>
+								<p class="grid-item">तमा मोशाकी ठिमला टिवु दोके तिवा चेङ्‍गा जोप ङ्‍यिमा खल ङ्‍यी छेसिमा योसेफ ताङ मरियमकी आङाला कोन्‍छ्‍योककी दोङ्‍ला चेक तेतुपला यरूशलेमला वोतुप यहूदी ल्‍हङाङला खुर्नी वासुङ।</p>
+								<p class="grid-item verse-number">23</p>
+								<p class="grid-item">ती ति कोन्‍छ्‍योककी ठिमला “थल्‍माला क्‍येवु तेरी पुज्‍युङ छ्‍ये ति कोन्‍छ्‍योककी थोक्‍ला चाङ्‍मा क्‍यानी चिवु यिन।” सिनी टिवु दोके कितुपला यिन।#</p>
+								<p class="grid-item verse-number">24</p>
+								<p class="grid-item">येलुङ कोन्‍छ्‍योककी ठिमला “गम्‍देर छ्‍या च्‍यिक याङ्‍ना बुर्केन च्‍यप्‍रुक ङ्‍यी चोके जिन्‍बा बुल गोकिवी।” सिनी टिवु दोके तिवी बुलुपला वासुङ।</p>
+								<p class="grid-item verse-number">25</p>
+								<p class="grid-item">तमा ती पेला यरूशलेमला शिमियोन सिरुप मी यी नोक। ती ति कोन्‍छ्‍योककी थोङ्‍दाङला टेङ्‍बु वोतुप ताङ कोन्‍छ्‍योकला मोवा कितुप मी यिनोक। तीकी कोन्‍छ्‍योककी इस्राएलकी मीतिवाला थर ज्‍यितुप तीला गुनी देनोक, तमा तीला कोन्‍छ्‍योककी थु चाङ्‍मा थोप्‍नी नोक।</p>
+								<p class="grid-item verse-number">26</p>
+								<p class="grid-item">कोन्‍छ्‍योककी थु चाङ्‍माकी तीला “चोवो कोन्‍छ्‍योककी तङ्‍गुप ख्रीष्‍टला ख्‍योरो माथोङ्‍वा सेक्‍ला ख्‍युरुङ मिशिवी।” सिनी हाक्‍को च्‍यिसुङ।</p>
+								<p class="grid-item verse-number">27</p>
+								<p class="grid-item">तोजो पेला कोन्‍छ्‍योककी थु चाङ्‍माकी तीला गोमा क्‍यानी ती ति यहूदी ल्‍हङाङ नाङ्‍ला गाल्‍सुङ। ती पेला राङ ते योसेफ ताङ मरियमकी आङा येशूला मोशाकी ठिमला वोतुप दोके लुक्‍सु तेन्‍दुपला खुन लेसुङ।</p>
+								<p class="grid-item verse-number">28</p>
+								<p class="grid-item">शिमियोनकी ती आङाला खोरो पङ्‍दुर लानी कोन्‍छ्‍योकला सोवा बुलिन सिरा सिक्‍यासुङ,</p>
+								<p class="grid-item verse-number">29</p>
+								<p class="grid-item">“ओ चोवो कोन्‍छ्‍योक, चोवोकी थाक्‍छ्‍येन नङ्‍गुप दोके तेरी छे च्‍यिन वे। त ङ ख्‍योरो लावाला लोदिमु क्‍यानी डो च्‍यिकिवी।</p>
+								<p class="grid-item verse-number">30</p>
+								<p class="grid-item">च्‍यिलासिसिन चोवोकी तेरी मीतिवाला थर ज्‍यितुपला तङ्‍गुप तीला ङे मिककी राङ थोङ्‍सुङ।</p>
+								<p class="grid-item verse-number">31</p>
+								<p class="grid-item">जम्‍बुलिङ तेरीकी मीतिवी तीला थोङ्‍शी सिनी चोवोकी टडिक क्‍या नाङ वे।</p>
+								<p class="grid-item verse-number">32</p>
+								<p class="grid-item">दी ति यहूदी मिन्‍दुप मिरिक यम्‍बातिवाला ति चोवोकी लाम छ्‍या देन्‍दुप वोसिर यिन, तमा इस्राएलकी मीतिवाला ति मोवा ङ्‍ये ज्‍यितुप यिन।”</p>
+								<p class="grid-item verse-number">33</p>
+								<p class="grid-item">शिमियोनकी आङी कोर्ला सिक्‍यावु ताम्‍ङे थोनी आङी पपा ताङ आमा तीकी हलेवा क्‍यासुङ।</p>
+								<p class="grid-item verse-number">34</p>
+								<p class="grid-item">शिमियोनकी तिवाला मोलाम बिन्‍नी आङी आमा मरियमला सिक्‍यासुङ, “ल्‍होसा, दी आङा ति इस्राएलकी मीतिवा बङीला ललाइला ति थर ज्‍यितुपकी थोक्‍ला ताङ ललाइला ति ना तोङ ज्‍यितुपकी थोक्‍ला कोन्‍छ्‍योककी पेतुप यिन। दी ति कोन्‍छ्‍योककी छ्‍या तेन्‍दुप त यिन, मी बङीकी तीकी तेन्‍दोकला लानी खोरो सेमगी नासाम छ्‍या देन्गिवी।</p>
+								<p class="grid-item verse-number">35</p>
+								<p class="grid-item">तमा ख्‍योरो सेम ति टि थ्‍वोनी सुरुप दोके छासे सेम्‍दुक लङ्‍गितो।” हन्‍नाकी आङा येशूकी कोर्ला लापुप</p>
+								<p class="grid-item verse-number">36</p>
+								<p class="grid-item">ते यहूदी ल्‍हङाङला हन्‍ना सिरुप कोन्‍छ्‍योककी लुङ्‍तेम्‍बा पुम्‍पेजा यी साङ नोक। ती ति आशेरकी गिपाकी फनुएलकी पुम नोक, तमा छासे मी गामा यिनोक। ती ति जेन्‍दी क्‍यावु लो दिनकी ज्‍युक्‍ला युक्‍सिम फोक्‍नोक,</p>
+								<p class="grid-item verse-number">37</p>
+								<p class="grid-item">तमा युक्‍सिम फोक्‍नी लो खाल गे ताङ ज्‍यी लेपुप पेला सेक ल्‍हङाङला क्‍युर्नी माज्‍याक्‍नी ङ्‍युङ्‍ने र्‍हुङ्‍यिन ताङ मोपोर कियी ङ्‍यी ताङ नुप्‍ज्‍या कोन्‍छ्‍योकला सोवा देकिनोक।‌</p>
+								<p class="grid-item verse-number">38</p>
+								<p class="grid-item">ती पेला राङ हन्‍ना ति मरियम ताङ योसेफकी चाला वानी कोन्‍छ्‍योकला थुचिछे पुल्सुङ, तमा कोन्‍छ्‍योककी इस्राएलला थर ज्‍यितुपला गुनी देतुपतिवा तेरीला ती आङी कोर्ला लाप्‍सुङ। योसेफ ताङ मरियम नासरतला लोकुप</p>
+								<p class="grid-item verse-number">39</p>
+								<p class="grid-item">योसेफ ताङ मरियम ति चोवो कोन्‍छ्‍योककी ठिमला टिवु दोके तेरी क्‍या सिन्‍सिमा खोप्‍रे युल गालीलकी नासरतला लोक्‍सुङ।</p>
+								<p class="grid-item verse-number">40</p>
+								<p class="grid-item">आङा येशू ति छरिन रम्‍बु डोयी च्‍यु ताङ रिक्‍पाकी क्‍येङ्‍नी गाल, तमा चोवो कोन्‍छ्‍योककी कटिन खोकी खला नोक। पेजा येशू यहूदी ल्‍हङाङला फेवु</p>
+								<p class="grid-item verse-number">41</p>
+								<p class="grid-item">येशूकी पपाआमा ति ले टेङ यहूदी थरुप तुछ्‍येन तेन्‍दुपला यरूशलेमला डिनोक।</p>
+								<p class="grid-item verse-number">42</p>
+								<p class="grid-item">येशू लो च्‍यिङ्‍ङी लेपुप पेला साङ तिवा नरी दोके क्‍यानी तुछ्‍येन तेन्‍दुपला यरूशलेमला गाल।</p>
+								<p class="grid-item verse-number">43</p>
+								<p class="grid-item">तमा तुछ्‍येन सिन्‍सिमा तिवा खाङ्‍बा लोकुप पेला पेजा येशू ति यरूशलेमला राङ लुनोक। यिने खोकी पपाआमाला ति ती ताम्‍ङे हाक्‍माकोनी</p>
+								<p class="grid-item verse-number">44</p>
+								<p class="grid-item">पेजा येशू ति तिवी मुला वुङ्‍गुप मीतिवी पर्ला वोते नोनी तिवा ङ्‍यिमा च्‍यिककी लामला गाल। तिङ्‍ला तिवी छेङ्‍गाछालीतिवा ताङ दाल्‍जातिवी पर्ला खोला छाल्‍सुङ।</p>
+								<p class="grid-item verse-number">45</p>
+								<p class="grid-item">यिने खोला माङ्‍येसिमा तिवा खोला छोलुपला येलुङ यरूशलेमला राङ लोक्‍सुङ।</p>
+								<p class="grid-item verse-number">46</p>
+								<p class="grid-item">तमा ङ्‍यिमा सुमकी तिङ्‍ला राङ तिवी येशूला यहूदी ल्‍हङाङला ठेसुङ। ती पेला खो ति यहूदी छ्‍योकी गेकेनतिवी पर्ला देनी तिवी ताम्‍ङे ङ्‍येनिन ताङ तिवाला ताम्‍ङे टिवा कियी नोक।</p>
+								<p class="grid-item verse-number">47</p>
+								<p class="grid-item">ते खोकी ताम्‍ङे ङ्‍येन्‍दुपतिवा तेरी खोकी च्‍यु ताङ रिक्‍पा ताङ खोकी टिलेन ग्‍यकुप थोङ्‍नी हलेवा क्‍यासुङ।</p>
+								<p class="grid-item verse-number">48</p>
+								<p class="grid-item">खोला ते थोङ्‍नी खोकी पपाआमा हलेवा क्‍यासुङ। तमा आमा तीकी खोला टिसुङ, “पुज्‍यो, ख्‍योरो च्‍यिला ङ्‍यिराङला दुक क्‍यावु यिन? ल्हो ताङ, ख्‍योरे पालु ताङ ङ ख्‍युरुङला छोल्‍सा छोल्‍सा छासे पप लासुङ।”</p>
+								<p class="grid-item verse-number">49</p>
+								<p class="grid-item">येशूकी तिवाला सुङ्‍सुङ, “ङला च्‍यिला छलुप्‍जा? ङ ङरा पपी खाङ्‍बाला राङ दे गोकिवी सिरुप ति ख्‍यिराङला छ्‍या मे?”</p>
+								<p class="grid-item verse-number">50</p>
+								<p class="grid-item">यिने खोकी सुङ्‍गुप ताम्‍ङे ति तिवी हाक्‍माको।</p>
+								<p class="grid-item verse-number">51</p>
+								<p class="grid-item">ती ज्‍युक्‍ला येशू खोरो पपाआमा मुला नासरतला लोक्‍सुङ, तमा तिवी खला ङ्‍येन्‍नी ज्‍युसुङ। खोकी आमा मरियमकी ती तेरी ताम्‍ङेतिवा खोरो सेमला ज्‍याक्‍सुङ।</p>
+								<p class="grid-item verse-number">52</p>
+								<p class="grid-item">येशू ति रिक्‍पा ताङ जुजमला छरिन गाल्‍सुङ, तमा कोन्‍छ्‍योक ताङ मीतिवा नेमा मङ ङ्‍यिङ्‍ज्‍ये थोपिन गाल्‍सुङ।</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer class="text--center band" style="width: 100%; background-image: url(pattern-background.jpg); background-size: cover;">
+				<div class="flex cell--center" style="width: 20%; padding: 1em;">
+					<svg class="cell cell--1of2 vertical--center wycliffe-logo" width="40px" height="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 372.5 119.04"><defs><style>.cls-1{fill:#fff;}</style></defs><title>Wycliffe Bible Translators</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M29.86,84.64c-6-21-12.49-42-18.78-63C8.33,12.27,6.51,10.83,0,9.9V7.54H28.49V9.9c-8,1-9.51,2.25-7.7,8.72C25.18,34.17,30,50.39,34.91,66.48h.23C41.31,47,47.9,27.63,54,8.61h3C63.34,27.76,70.14,47,76.91,66.39h.23c5.15-15,11.66-38,13.4-46.63,1.44-7.38.36-8.84-8.35-9.87V7.54h25.47V9.9c-7.31,1.16-8.56,2.46-12.12,12.33C92.7,29.87,85.61,52,75.73,84.64H72.46c-6.2-19-14.68-43.43-19.91-57.78h-.23C45.51,47,39.19,65.7,33.15,84.64Z"/><path class="cls-1" d="M166.62,31.25c3,0,8,1.28,10.38,3.14a3.47,3.47,0,0,1,1.5,3.17c-.11,2.71-2.59,5.35-4.12,5.35a3.16,3.16,0,0,1-2-1.06c-4.36-4-8.34-5.31-12.76-5.31-6.17,0-12.94,5.25-13,18.62,0,16.7,11.36,21.92,17.68,21.92,5,0,8.75-1.35,14.11-6.75l1.68,1.88c-5,7.08-12.67,12.44-19.58,12.44-14.6,0-23.47-11.76-23.47-23.9A28.07,28.07,0,0,1,148.5,38c6.85-5.18,14-6.74,18-6.74Z"/><path class="cls-1" d="M217.82,4.43a6.27,6.27,0,0,1,6.26,6.38,6.33,6.33,0,0,1-6.37,6.29,6.44,6.44,0,0,1-6.32-6.29,6.39,6.39,0,0,1,6.32-6.38Z"/><path class="cls-1" d="M313.36,31.25c9.73,0,17.33,8.6,17.31,17.18,0,2.33-.52,3.1-2.68,3.56-1.8.35-16.21,1.48-30.14,1.95-.07,16.85,9.43,23,17.81,23,4.36,0,8.41-1.56,12.8-5.73l1.61,1.91c-6.77,9.17-15.19,11.53-18.58,11.53-14.43,0-22.94-11.32-22.94-24.36a30.07,30.07,0,0,1,7.8-20.54c4.72-5.16,11.27-8.49,16.91-8.49Zm-3.23,3.87c-5.08,0-10.42,5.27-11.65,14.68,6.58,0,13.21-.12,19.7-.29,1.88,0,2.55-.68,2.55-2.36.07-5.89-3.57-12-10.49-12Z"/><path class="cls-1" d="M203.65,83.24h84V80.91c-9.36-.83-10.32-2-10.32-9.48V37.27h12.32c1.63-.76,2-3.32,1.27-4.62H277.32s0-10,0-13c0-4.51.71-12.43,7.87-12.43,4,0,4,1.54,7.51,1.54,2.82,0,4.12-1.87,4.12-4.28,0-4.07-3.28-4.51-5.29-4.51-1.65,0-7.75,1.32-14.21,7.59-7.28,7-9.39,17.93-9.39,25.06h-5.37l-3.23,3.29.56,1.33h8V71.43c0,7.43-1.68,9.48-8.77,9.48-6.9,0-9.28-2-9.28-9.48V37.27h12.32c1.64-.76,2-3.32,1.26-4.62H249.91s0-9.38,0-13c0-4.51.71-12.43,7.87-12.43,4,0,4,1.54,7.52,1.54,2.82,0,4.11-1.87,4.11-4.28,0-4.07-3.29-4.51-5.29-4.51-1.64,0-7.74,1.32-14.21,7.59-7.28,7-9.39,17.93-9.39,25.06h-5.38l-3.24,3.29.57,1.33h8V71.43c0,7.43-1.06,8.65-7.46,9.45a11.38,11.38,0,0,1-2.2,0c-7.22-.72-8.17-2-8.17-9.62V31.07a80.47,80.47,0,0,1-16.5,4.6v2.07c6.52,1.26,7.14,1.76,7.14,9.31v24.2c0,7.63-1,8.89-8.1,9.63a9.34,9.34,0,0,1-1.63,0c-7.13-.66-8.11-2-8.11-9.51V.21a94.18,94.18,0,0,1-17.2,4.07V6.42c7.26.77,7.85,1.35,7.85,9V71.37c0,7.52-1,8.85-8.11,9.51v2.37Z"/><path class="cls-1" d="M114.11,32.68V35c-5.47.88-6.65,1.92-4.88,6.56L120.1,70.49c3.26-7.13,9.08-22.68,10.67-27.88,1.66-5.42.72-6.68-5.82-7.56V32.68h21.2V35c-6,1-6.77,2.19-10,8.48s-7.57,16.13-15.59,34.67c-8,18.28-10.4,26-13.15,32a3.6,3.6,0,0,1-4.23,2.22c-3-.48-5.74-3.75-5.28-6.57.28-1.75,1.58-2.61,3.64-3.63,3.75-2,6-4.87,8.27-9a53.56,53.56,0,0,0,3.88-8.43,6.77,6.77,0,0,0-.12-5C108.83,66.26,103.19,52,100,44c-2.6-6.6-3.59-8-10-9V32.68Z"/><path class="cls-1" d="M341.75,27a7.41,7.41,0,1,1-7.4-7.42A7.39,7.39,0,0,1,341.75,27Zm-13.52,0a6.12,6.12,0,1,0,12.22,0,6.12,6.12,0,1,0-12.22,0Zm6.3-4.09c1.36,0,2.91.39,2.91,2.15a2.31,2.31,0,0,1-1.77,2.09c.22.39.7,1.26,1.1,1.84a8.87,8.87,0,0,0,1,1.25,2.41,2.41,0,0,0,.68.52l.09,0,0,.41-.65,0a2.36,2.36,0,0,1-2.2-1.16c-.39-.61-1-1.77-1.16-2s-.32-.42-.59-.42h-.55v1.87c0,1,.07,1.06,1.14,1.15v.54h-3.79v-.54c1.1-.1,1.16-.13,1.16-1.15V24.62c0-1.06-.07-1.09-1.1-1.16v-.55Zm-1.2,4h.75a2.31,2.31,0,0,0,1-.22,1.77,1.77,0,0,0,.75-1.48,1.63,1.63,0,0,0-1.65-1.77c-.82,0-.82,0-.82.51Z"/><path class="cls-1" d="M134.56,103.66c4.21.64,7.52,2.51,7.52,6.75a7.21,7.21,0,0,1-4.08,6.41,17.3,17.3,0,0,1-8.33,1.7h-9.39v-1.19c3.65-.25,3.91-.51,3.91-4.08V96.14c0-3.53-.17-3.78-3.57-4V90.91h10.92c3.19,0,5.06.51,6.37,1.44a5.77,5.77,0,0,1,2.38,4.84c0,4-3.36,5.69-5.73,6.33Zm-4.8-.51c4.67,0,6.63-1.87,6.63-5.44,0-2.89-1.61-5.44-5.65-5.44a5.47,5.47,0,0,0-2.42.42c-.38.25-.55.72-.55,2.12v8.33Zm-2,10.07c0,3.06.81,3.87,3.53,3.87,3.48,0,6.58-1.83,6.58-6.25s-3-6.29-8.16-6.29h-2Z"/><path class="cls-1" d="M143.69,118.53v-1.1c2.68-.25,3-.51,3-3.4v-8.75c0-2.63-.13-2.8-2.68-3.23v-1a26.84,26.84,0,0,0,6-1.66V114c0,2.89.3,3.14,3,3.4v1.1Zm2.25-24.94a2.18,2.18,0,0,1,2.17-2.21,2.12,2.12,0,0,1,2.12,2.21,2.18,2.18,0,0,1-2.17,2.17A2.23,2.23,0,0,1,145.94,93.59Z"/><path class="cls-1" d="M162.38,99.88a4.47,4.47,0,0,1,1.74-.43,8.65,8.65,0,0,1,8.37,8.92A10.56,10.56,0,0,1,161.83,119a14.83,14.83,0,0,1-6.24-1.53V93.89c0-2.63-.08-2.89-2.8-3.14v-1a34.32,34.32,0,0,0,6.16-1.49v13.08Zm-3.44,13.72a3.39,3.39,0,0,0,.25,1.44,4,4,0,0,0,3.78,2.38c3.53,0,5.78-3,5.78-7.94s-3-7.65-6.5-7.65a7.06,7.06,0,0,0-3.31.81Z"/><path class="cls-1" d="M173.34,118.53v-1.1c2.68-.25,3.06-.51,3.06-3.31V94c0-2.89-.25-3-2.93-3.23v-1a32.61,32.61,0,0,0,6.29-1.49v25.83c0,2.8.34,3.06,3.06,3.31v1.1Z"/><path class="cls-1" d="M199.17,114.92c-2.68,3.36-5.61,4.12-6.92,4.12-5.22,0-8.28-4.25-8.28-9a10.94,10.94,0,0,1,2.8-7.43,8.62,8.62,0,0,1,6.24-3.1,6.58,6.58,0,0,1,6.37,6.46c0,.85-.21,1.19-1,1.36s-6,.55-11.09.72c0,5.78,3.36,8.16,6.33,8.16a6.94,6.94,0,0,0,4.84-2.12Zm-11.64-8.67c2.38,0,4.71,0,7.18-.13.76,0,1-.25,1-.85A3.9,3.9,0,0,0,192,101C190,101,188.16,102.81,187.53,106.25Z"/><path class="cls-1" d="M225.59,89.89c-.34,1.91-.72,5.14-1,7.43l-1.27.13a9.34,9.34,0,0,0-.51-3.78c-.38-1-1.28-1.32-4.55-1.32h-2.55l-4,21.07c-.64,3.44-.34,3.7,3.48,4l-.25,1.15H203.46l.25-1.15c3.61-.26,3.87-.55,4.5-4l4-21.07h-2.17c-3.65,0-4.42.34-5.23,1.27a16,16,0,0,0-2.08,3.82H201.5c.76-2.51,1.49-5.22,2-7.56h.89c.47,1,.93,1.06,2.08,1.06h16a2.57,2.57,0,0,0,2.25-1.06Z"/><path class="cls-1" d="M221.12,103.62c2.17-2.42,4.8-4.16,5.95-4.16s1.11,2,.47,4.93l-.42,2.13h.13c2.17-4.16,4.67-7.05,6.37-7.05a2.3,2.3,0,0,1,1.83,1.06,1.87,1.87,0,0,1,0,1.83,4.47,4.47,0,0,1-1.1,1.23c-.38.25-.72.25-.94,0a2,2,0,0,0-1.44-.72c-.51,0-1.19.42-2.17,1.78a29.2,29.2,0,0,0-3,5.27c-.68,2.85-1.19,5.52-1.7,8.33a15.76,15.76,0,0,0-3,.76l-.34-.34c1.1-4.54,2.29-9.77,3.1-14.32.25-1.4.25-1.83-.09-1.83a8.44,8.44,0,0,0-3,2Z"/><path class="cls-1" d="M252.47,114.62c-2.29,2.85-5.14,4.42-6.2,4.42-.81,0-1.36-.64-.76-3.74l.85-4h-.09a30.5,30.5,0,0,1-5.48,5.86,7,7,0,0,1-4,1.91c-1.11,0-2.46-1.4-2.46-4.8a15.65,15.65,0,0,1,5.1-11.51,13.46,13.46,0,0,1,7.9-3.27,13.89,13.89,0,0,1,2.63.3,8.36,8.36,0,0,0,1.62.25l.13.17c-.68,2.63-2,8.41-2.93,13.81-.3,1.49-.17,1.83.09,1.83A9.24,9.24,0,0,0,252,113.6ZM246.95,108c.47-1.7,1.11-4.76,1.4-6.12a7.12,7.12,0,0,0-2.85-.59,5.28,5.28,0,0,0-3,.89c-2.89,2.13-4.59,7.14-4.59,11.34,0,1.91.55,2.8,1.15,2.8C240.71,116.32,245.51,110.92,246.95,108Z"/><path class="cls-1" d="M272.82,114.92c-2.51,2.72-4.89,4.12-6,4.12s-1.44-1.15-.68-4.42,1.53-6.29,2.29-9.43c.59-2.42.34-3.06-.34-3.06-1.87,0-6.8,5.27-8.92,8.88-.51,2.08-1.15,4.63-1.66,7.18a20.82,20.82,0,0,0-3.06.85l-.26-.34c1.15-4.59,2.42-9.69,3.44-14.4.34-1.36.21-1.7,0-1.7a7.88,7.88,0,0,0-2.76,1.91l-.55-1c2.29-2.51,4.8-4,6-4,1,0,1.15,1.45.34,4.72l-.89,3.7h.08a28.61,28.61,0,0,1,7.82-7.48,5.72,5.72,0,0,1,2.85-.94c1,0,2.21.64.93,6.08-.68,2.89-1.36,5.86-2.08,8.84-.25,1.15-.21,1.53.09,1.53a7.43,7.43,0,0,0,2.8-2Z"/><path class="cls-1" d="M273.83,116a2.1,2.1,0,0,1,1.23-1.78c.51-.25.85-.17,1.06.13a5.25,5.25,0,0,0,4.08,2.59,2.62,2.62,0,0,0,2.8-2.55c0-1.06-.47-2-2.46-3.57s-3.7-3-3.7-5.18a5.36,5.36,0,0,1,2.21-4.12,8.4,8.4,0,0,1,4.72-2c1.87,0,3.31,1.28,3.31,2.38a2.06,2.06,0,0,1-1.06,1.74.6.6,0,0,1-.93-.17,4.24,4.24,0,0,0-3.31-1.91,2.28,2.28,0,0,0-2.29,2.38c0,1.53,1.23,2.59,2.76,3.78,2.55,1.91,3.57,3.14,3.57,5,0,3.23-4.25,6.41-7.69,6.41C276.13,119,273.83,117.46,273.83,116Z"/><path class="cls-1" d="M296,114.49c-2.21,2.63-5.23,4.54-6.54,4.54-.81,0-1.49-1-.59-5.14q2.23-10.45,4.42-20.94c.42-1.83.17-2.12-1.78-2.12l-1.15,0,.17-1a47.41,47.41,0,0,0,6.29-1.49c.38,0,.42.38.25,1.27-1.74,8.2-3.48,16.44-5.27,24.85-.25,1.23-.08,1.49.17,1.49a9,9,0,0,0,3.4-2.34Z"/><path class="cls-1" d="M315.33,114.62c-2.29,2.85-5.14,4.42-6.2,4.42-.81,0-1.36-.64-.77-3.74l.85-4h-.08a30.57,30.57,0,0,1-5.48,5.86,7,7,0,0,1-4,1.91c-1.1,0-2.46-1.4-2.46-4.8a15.65,15.65,0,0,1,5.1-11.51,13.45,13.45,0,0,1,7.9-3.27,13.91,13.91,0,0,1,2.63.3,8.33,8.33,0,0,0,1.61.25l.13.17c-.68,2.63-2,8.41-2.93,13.81-.3,1.49-.17,1.83.08,1.83a9.23,9.23,0,0,0,3.06-2.21ZM309.81,108c.47-1.7,1.1-4.76,1.4-6.12a7.12,7.12,0,0,0-2.85-.59,5.28,5.28,0,0,0-3,.89c-2.89,2.13-4.59,7.14-4.59,11.34,0,1.91.55,2.8,1.15,2.8C303.57,116.32,308.37,110.92,309.81,108Z"/><path class="cls-1" d="M327.65,101.58l-4.21.21-2.51,11.72c-.42,2.08-.21,2.55.25,2.55.72,0,2.8-1.4,3.82-2.46l.59.89c-1.4,1.7-4.59,4.54-6.84,4.54-1,0-1.83-1.23-.89-5.61l2.51-11.64h-3.14l-.13-.38,1.06-1.28h2.55l1-4,3.23-2.63.38.25-1.49,6.41h4.93Z"/><path class="cls-1" d="M327.9,112.41a12.93,12.93,0,0,1,6.46-11.6,10.79,10.79,0,0,1,4.59-1.36c3.53,0,5.65,2.42,5.65,6.63a13.76,13.76,0,0,1-4.55,10.28,10.56,10.56,0,0,1-6.54,2.68C329.48,119,327.9,115.85,327.9,112.41Zm8.5,4.67c2.29-1,4.63-5.48,4.63-10.92,0-3.44-1.49-5.1-3.44-5.1a3.78,3.78,0,0,0-1.61.38c-1.66.72-4.5,4.21-4.5,10.75,0,3.14,1.32,5.14,3.57,5.14A3.52,3.52,0,0,0,336.4,117.08Z"/><path class="cls-1" d="M346.51,103.62c2.17-2.42,4.8-4.16,5.95-4.16s1.1,2,.47,4.93l-.42,2.13h.13c2.17-4.16,4.67-7.05,6.37-7.05a2.3,2.3,0,0,1,1.83,1.06,1.87,1.87,0,0,1,0,1.83,4.48,4.48,0,0,1-1.11,1.23c-.38.25-.72.25-.93,0a2,2,0,0,0-1.45-.72c-.51,0-1.19.42-2.17,1.78a29.08,29.08,0,0,0-3,5.27c-.68,2.85-1.19,5.52-1.7,8.33a15.73,15.73,0,0,0-3,.76l-.34-.34c1.1-4.54,2.29-9.77,3.1-14.32.26-1.4.26-1.83-.08-1.83a8.44,8.44,0,0,0-3,2Z"/><path class="cls-1" d="M359.25,116a2.1,2.1,0,0,1,1.23-1.78c.51-.25.85-.17,1.06.13a5.25,5.25,0,0,0,4.08,2.59,2.62,2.62,0,0,0,2.8-2.55c0-1.06-.47-2-2.46-3.57s-3.7-3-3.7-5.18a5.36,5.36,0,0,1,2.21-4.12,8.4,8.4,0,0,1,4.72-2c1.87,0,3.31,1.28,3.31,2.38a2.06,2.06,0,0,1-1.06,1.74.6.6,0,0,1-.93-.17,4.24,4.24,0,0,0-3.31-1.91,2.28,2.28,0,0,0-2.29,2.38c0,1.53,1.23,2.59,2.76,3.78,2.55,1.91,3.57,3.14,3.57,5,0,3.23-4.25,6.41-7.69,6.41C361.54,119,359.25,117.46,359.25,116Z"/></g></g>
+					</svg>
+					<svg class="cell cell--1of2 vertical--center" width="30px" height="15px" viewBox="0 0 284.78 40.68"><defs><style>.cls-1{fill:#fff;}</style></defs><title>youversion</title><polygon class="cls-1" points="29.59 1.33 18.72 18.41 8.02 1.33 0 1.33 15.26 24.76 15.26 40.02 22.07 40.02 22.07 24.6 37.34 1.33 29.59 1.33"/><path class="cls-1" d="M46,10.23A15.2,15.2,0,0,0,30.47,25.48v.11A15,15,0,0,0,45.84,40.68a15.21,15.21,0,0,0,15.54-15.2v-.11A15.06,15.06,0,0,0,46,10.23Zm8.79,15.36c0,5-3.41,9.23-8.79,9.23-5.16,0-8.84-4.25-8.84-9.34v-.11c0-5.08,3.41-9.28,8.73-9.28s8.9,4.25,8.9,9.39Z"/><path class="cls-1" d="M85.54,27.31c0,4.53-2.69,7.18-6.53,7.18S72.8,32,72.8,27.42V10.83H66.16V29.41c0,6.8,3.79,11.22,10.32,11.22,4.5,0,7.19-2.38,9.06-5.14V40h6.7V10.83h-6.7Z"/><polygon class="cls-1" points="126.06 1.33 114.53 31.07 102.94 1.33 95.47 1.33 111.39 40.3 117.43 40.3 133.36 1.33 126.06 1.33"/><path class="cls-1" d="M145,10.23c-8.29,0-14.17,6.85-14.17,15.2v.11c0,9,6.48,15.14,14.88,15.14a14.6,14.6,0,0,0,11.86-5.47l-3.9-3.48a10.5,10.5,0,0,1-7.85,3.48c-4.28,0-7.63-2.65-8.35-7.41h21.31c.05-.66.11-1.27.11-1.88C158.89,17.52,154.22,10.23,145,10.23Zm-7.58,13.15c.6-4.53,3.46-7.68,7.52-7.68,4.39,0,6.92,3.37,7.36,7.68Z"/><path class="cls-1" d="M171.13,17.41V10.83h-6.7V40h6.7V28.91c0-7.74,4.06-11.55,9.88-11.55h.39V10.28C176.29,10.06,172.94,13,171.13,17.41Z"/><path class="cls-1" d="M197.76,22.77c-3.41-1.1-6.53-2-6.53-4.14v-.11c0-1.61,1.48-2.88,4.06-2.88a16.71,16.71,0,0,1,8.18,2.77l2.63-4.76a20,20,0,0,0-10.65-3.31c-5.76,0-10.32,3.37-10.32,9v.11c0,5.53,4.78,7.3,9.06,8.51,3.41,1.06,6.48,1.83,6.48,4.09v.12c0,1.93-1.65,3.15-4.5,3.15a16.31,16.31,0,0,1-9.5-3.6l-3,4.54A19.94,19.94,0,0,0,196,40.57c6,0,10.76-3,10.76-9.17v-.11C206.76,26,202,24.1,197.76,22.77Z"/><rect class="cls-1" x="211.48" width="7.14" height="6.36"/><rect class="cls-1" x="211.7" y="10.83" width="6.7" height="29.19"/><path class="cls-1" d="M238.77,10.23a15.2,15.2,0,0,0-15.48,15.25v.11a15,15,0,0,0,15.37,15.09,15.21,15.21,0,0,0,15.54-15.2v-.11A15.06,15.06,0,0,0,238.77,10.23Zm8.79,15.36c0,5-3.41,9.23-8.79,9.23-5.16,0-8.84-4.25-8.84-9.34v-.11c0-5.08,3.41-9.28,8.73-9.28s8.9,4.25,8.9,9.39Z"/><path class="cls-1" d="M274.46,10.23c-4.5,0-7.19,2.37-9.06,5.08V10.83h-6.7V40h6.7V23.55c0-4.54,2.69-7.24,6.53-7.24s6.21,2.59,6.21,7.13V40h6.64V21.39C284.78,14.65,281,10.23,274.46,10.23Z"/></svg>
+				</div>
+			</footer>
+		</div>
+	</body>
+
+
+
+	<style>
+
+	</style>
+
+	<div data-remodal-id="signup" class="modal bkgrd-pattern flex">
+			<button data-remodal-action="close" class="remodal-close" ></button>
+			<div class="remodal-interrupt vertical--center cell--center">
+				<div class="text--white cell cell--2of3 cell--center">
+					<h1 class="text--white">Partners in Translation</h1>
+					<p class="text--white text--larger">Bible translation is a mission that can&#39;t be done alone. Through partnership, each translation is completed and distributed in a form people can access. The texts you see below were translated by Wycliffe and are now available on the YouVersion app.</p>
+					<button data-remodal-action="close" class="btn">Get Started!</button>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var signup = $('[data-remodal-id=signup]').remodal({ hashTracking: false });
+				if (document.cookie.replace(/(?:(?:^|.*;\s*)signup\s*\=\s*([^;]*).*$)|^.*$/, "$1") !== "false") {
+					window.setTimeout(function() {
+						signup.open();
+						document.cookie = "signup=true;max-age=240;";
+					}, 00000);
+				}
+			});
+		</script>
+</html>
